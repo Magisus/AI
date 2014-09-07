@@ -34,7 +34,7 @@ public class Gui {
 	
 	/** Creates the world and agent, then animates them forever. */
 	public static void main(String[] args) {
-		World world = new World(25);
+		World world = new NastyWorld(40);
 		AbstractAgent agent = new StateAgent();
 		setScale(0, world.getWidth());
 		show(0); // Wait until everything is drawn before first display

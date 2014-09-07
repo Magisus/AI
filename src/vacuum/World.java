@@ -14,7 +14,7 @@ public class World {
 		int sum = 0;
 		for (int i = 0; i < 100; i++) {
 			World world = new World(25);
-			AbstractAgent agent = new ReflexAgent();
+			AbstractAgent agent = new StateAgent();
 			sum += world.simulate(agent, 10000);
 		}
 		System.out.println(sum / 100);
