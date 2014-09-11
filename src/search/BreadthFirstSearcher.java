@@ -2,36 +2,45 @@ package search;
 
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.concurrent.LinkedBlockingQueue;
 
 public class BreadthFirstSearcher implements Searcher{
+	
+	private LinkedList<Node> frontier;
+	
+	int nodeCount;
+	
+	public BreadthFirstSearcher(){
+		frontier = new LinkedList<>();
+		nodeCount = 0;
+	}
 
 	@Override
 	public void addToFrontier(Node node) {
-		// TODO Auto-generated method stub
-		
+		frontier.add(node);
 	}
 
 	@Override
 	public boolean cutoff(Node node) {
-		// TODO Auto-generated method stub
+		if(node.getDepth() > 20){
+			return true;
+		}
 		return false;
 	}
 
 	@Override
 	public boolean frontierIsEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return frontier.size() == 0;
 	}
 
 	@Override
 	public int getNodeCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return nodeCount;
 	}
 
 	@Override
 	public void initializeFrontier() {
-		// TODO Auto-generated method stub
+		frontier = new LinkedList<>();
 		
 	}
 
@@ -43,13 +52,12 @@ public class BreadthFirstSearcher implements Searcher{
 
 	@Override
 	public Node removeFromFrontier() {
-		// TODO Auto-generated method stub
-		return null;
+		return frontier.removeFirst();
 	}
 
 	@Override
 	public void resetNodeCount() {
-		// TODO Auto-generated method stub
+		nodeCount = 0;
 		
 	}
 
