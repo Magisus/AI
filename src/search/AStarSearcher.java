@@ -2,31 +2,31 @@ package search;
 
 import java.util.LinkedList;
 import java.util.Map;
+import java.util.PriorityQueue;
 
 public class AStarSearcher implements Searcher {
+	
+	private PriorityQueue<Node> frontier;
+	private int nodeCount;
 
 	@Override
 	public void addToFrontier(Node node) {
-		int x = 25;
-
+		frontier.add(node);
 	}
 
 	@Override
 	public boolean cutoff(Node node) {
-		// TODO Auto-generated method stub
-		return false;
+		return node.getDepth() > 20;
 	}
 
 	@Override
 	public boolean frontierIsEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return frontier.isEmpty();
 	}
 
 	@Override
 	public int getNodeCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return nodeCount;
 	}
 
 	@Override
@@ -43,14 +43,12 @@ public class AStarSearcher implements Searcher {
 
 	@Override
 	public Node removeFromFrontier() {
-		// TODO Auto-generated method stub
-		return null;
+		return frontier.poll();
 	}
 
 	@Override
 	public void resetNodeCount() {
-		// TODO Auto-generated method stub
-
+		nodeCount = 0;
 	}
 
 	@Override
