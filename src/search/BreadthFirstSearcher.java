@@ -1,30 +1,29 @@
 package search;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Map;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class BreadthFirstSearcher implements Searcher{
-	
+public class BreadthFirstSearcher implements Searcher {
+
 	private LinkedList<Node> frontier;
-	
 	int nodeCount;
-	
-	public BreadthFirstSearcher(){
+
+	public BreadthFirstSearcher() {
 		frontier = new LinkedList<>();
 		nodeCount = 0;
 	}
 
 	@Override
 	public void addToFrontier(Node node) {
-		frontier.add(node);
+		if (!frontier.contains(node)) {
+			frontier.add(node);
+		}
 	}
 
 	@Override
 	public boolean cutoff(Node node) {
-		if(node.getDepth() > 20){
-			return true;
-		}
 		return false;
 	}
 
@@ -41,13 +40,12 @@ public class BreadthFirstSearcher implements Searcher{
 	@Override
 	public void initializeFrontier() {
 		frontier = new LinkedList<>();
-		
 	}
 
+	@SuppressWarnings("boxing")
 	@Override
 	public boolean inShallower(Node node, Map<String, Integer> map) {
-		// TODO Auto-generated method stub
-		return false;
+		return map.containsKey(node.getState()) && map.get(node.getState()) < node.getDepth();
 	}
 
 	@Override
@@ -58,12 +56,29 @@ public class BreadthFirstSearcher implements Searcher{
 	@Override
 	public void resetNodeCount() {
 		nodeCount = 0;
-		
+
 	}
 
+	@SuppressWarnings("boxing")
 	@Override
 	public LinkedList<Character> search(Node problem) {
-		// TODO Auto-generated method stub
+		frontier.clear();
+		Map<String, Integer> map = new HashMap<>();
+		addToFrontier(problem);
+		nodeCount++;
+		while (!frontier.isEmpty()) {
+			Node node = removeFromFrontier();
+			map.put(node.getState(), node.getDepth());
+			if (node.isGoal()) {
+				return node.path();
+			}
+			for (Node neighbor : node.expand()) {
+				if (!inShallower(neighbor, map)) {
+					addToFrontier(neighbor);
+					nodeCount++;
+				}
+			}
+		}
 		return null;
 	}
 
