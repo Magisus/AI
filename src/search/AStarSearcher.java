@@ -7,7 +7,7 @@ public class AStarSearcher implements Searcher {
 
 	@Override
 	public void addToFrontier(Node node) {
-		// TODO Auto-generated method stub
+		int x = 25;
 
 	}
 
