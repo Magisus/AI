@@ -10,6 +10,7 @@ public class AStarSearcher implements Searcher {
 
 	private PriorityQueue<Node> frontier;
 	private int nodeCount;
+	private int currentCost;
 
 	public AStarSearcher() {
 		nodeCount = 0;
@@ -18,8 +19,9 @@ public class AStarSearcher implements Searcher {
 
 	@Override
 	public void addToFrontier(Node node) {
-		frontier.add(node);
-
+		if (!frontier.contains(node)) {
+			frontier.add(node);
+		}
 	}
 
 	@Override
@@ -68,7 +70,7 @@ public class AStarSearcher implements Searcher {
 	public LinkedList<Character> search(Node problem) {
 		frontier.clear();
 		Map<String, Integer> map = new HashMap<String, Integer>();
-		frontier.add(problem);
+		addToFrontier(problem);
 		nodeCount++;
 		while (!frontier.isEmpty()) {
 			Node node = removeFromFrontier();
