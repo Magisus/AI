@@ -10,7 +10,6 @@ public class AStarSearcher implements Searcher {
 
 	private PriorityQueue<Node> frontier;
 	private int nodeCount;
-	private int currentCost;
 
 	public AStarSearcher() {
 		nodeCount = 0;
@@ -43,9 +42,15 @@ public class AStarSearcher implements Searcher {
 	@Override
 	public void initializeFrontier() {
 		frontier = new PriorityQueue<Node>(1, new Comparator<Node>() {
-			public int compare(Node one, Node two) {
-				return one.compareTo(two);
+
+			@Override
+			public int compare(Node o1, Node o2) {
+				// TODO Auto-generated method stub
+				return 0;
 			}
+//			public int compare(Node one, Node two) {
+//				return one.compareTo(two);
+//			}
 		});
 
 	}
