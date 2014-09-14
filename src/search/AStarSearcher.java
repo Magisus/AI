@@ -25,8 +25,7 @@ public class AStarSearcher implements Searcher {
 
 	@Override
 	public boolean cutoff(Node node) {
-		// TODO Auto-generated method stub
-		return false;
+		return node.getDepth() > 20;
 	}
 
 	@Override
