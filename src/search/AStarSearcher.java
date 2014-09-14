@@ -45,12 +45,14 @@ public class AStarSearcher implements Searcher {
 
 			@Override
 			public int compare(Node o1, Node o2) {
-				// TODO Auto-generated method stub
-				return 0;
+				if(o1.evaluate() > o2.evaluate()){
+					return 1;
+				} else if(o1.evaluate() < o2.evaluate()){
+					return -1;
+				} else {
+					return 0;
+				}
 			}
-//			public int compare(Node one, Node two) {
-//				return one.compareTo(two);
-//			}
 		});
 
 	}
@@ -80,11 +82,11 @@ public class AStarSearcher implements Searcher {
 		while (!frontier.isEmpty()) {
 			Node node = removeFromFrontier();
 			map.put(node.getState(), node.getDepth());
-			if (node.isGoal())
+			if (node.isGoal()) {
 				return node.path();
-
+			}
 			for (Node neighbor : node.expand()) {
-				if (!inShallower(neighbor, map)) {
+				if (!inShallower(neighbor, map) && !cutoff(neighbor)) {
 					addToFrontier(neighbor);
 					nodeCount++;
 				}

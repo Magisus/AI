@@ -16,8 +16,8 @@ public class Experiment {
 				}
 			}
 			for (Searcher searcher : new Searcher[] {
-					new BreadthFirstSearcher(),
-					new AStarSearcher() }) {
+					new AStarSearcher(),
+					new BreadthFirstSearcher() }) {
 				try {
 					System.out.println(searcher.getClass().getSimpleName());
 					for (int depth = 1; depth < instances.length; depth++) {
