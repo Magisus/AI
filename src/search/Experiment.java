@@ -5,6 +5,8 @@ import java.io.PrintWriter;
 
 /** Experiment to test the effectiveness of various search algorithms. */
 public class Experiment {
+	
+	private static String data;
 
 	public static void main(String[] args) {
 		for (Node problem : new Node[] { new FifteenPuzzleNode(),
@@ -19,7 +21,7 @@ public class Experiment {
 			for (Searcher searcher : new Searcher[] {
 					new BreadthFirstSearcher(), new AStarSearcher() }) {
 				try {
-					String data = "";
+					data = "";
 					System.out.println(searcher.getClass().getSimpleName());
 					for (int depth = 1; depth < instances.length; depth++) {
 						int nodeSum = 0;
@@ -54,6 +56,11 @@ public class Experiment {
 						e.printStackTrace();
 					}
 				} catch (OutOfMemoryError e) {
+					try(PrintWriter writer = new PrintWriter(problem.getClass().getSimpleName() + searcher.getClass().getSimpleName() + ".csv")){
+						writer.print(data);
+					} catch (FileNotFoundException ex) {
+						e.printStackTrace();
+					}
 					// This searcher can't do problems this difficult; move on
 					// to the next searcher
 					continue;
