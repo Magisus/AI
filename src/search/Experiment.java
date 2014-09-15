@@ -1,13 +1,14 @@
 package search;
 
+import java.io.FileNotFoundException;
+import java.io.PrintWriter;
+
 /** Experiment to test the effectiveness of various search algorithms. */
 public class Experiment {
 
 	public static void main(String[] args) {
 		for (Node problem : new Node[] { new FifteenPuzzleNode(),
-				new ManhattanFifteenPuzzleNode(), 
-				new CubeNode()
-		}) {
+				new ManhattanFifteenPuzzleNode(), new CubeNode() }) {
 			System.out.println(problem.getClass().getSimpleName());
 			Node[][] instances = new Node[21][100];
 			for (int depth = 1; depth < instances.length; depth++) {
@@ -16,9 +17,9 @@ public class Experiment {
 				}
 			}
 			for (Searcher searcher : new Searcher[] {
-					new BreadthFirstSearcher(),
-					new AStarSearcher() }) {
+					new BreadthFirstSearcher(), new AStarSearcher() }) {
 				try {
+					String data = "";
 					System.out.println(searcher.getClass().getSimpleName());
 					for (int depth = 1; depth < instances.length; depth++) {
 						int nodeSum = 0;
@@ -42,6 +43,15 @@ public class Experiment {
 												/ instances[0].length,
 										((double) lengthSum)
 												/ instances[0].length);
+						data += (double) nodeSum / instances[0].length + ","
+								+ (double) timeSum / instances[0].length + ","
+								+ (double) lengthSum / instances[0].length + "\n";
+
+					}
+					try(PrintWriter writer = new PrintWriter(problem.getClass().getSimpleName() + searcher.getClass().getSimpleName() + ".csv")){
+						writer.print(data);
+					} catch (FileNotFoundException e) {
+						e.printStackTrace();
 					}
 				} catch (OutOfMemoryError e) {
 					// This searcher can't do problems this difficult; move on
