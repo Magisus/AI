@@ -7,13 +7,17 @@ import org.junit.Test;
 
 public class AStarTest {
 
+	private AStarSearcher searcher;
+	
 	@Before
 	public void setUp() throws Exception {
+		searcher = new AStarSearcher();
 	}
 
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testSearch() {
+		FifteenPuzzleNode puzzle = new FifteenPuzzleNode("ABCDEFGHIJ.KMNOL");
+		assertEquals(2, searcher.search(puzzle).size());
 	}
 
 }

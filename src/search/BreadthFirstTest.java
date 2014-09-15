@@ -15,11 +15,6 @@ public class BreadthFirstTest {
 	public void setUp(){
 		searcher = new BreadthFirstSearcher();
 	}
-
-	@Test
-	public void testCutOff(){
-		FifteenPuzzleNode puzzle = new FifteenPuzzleNode("ABCDEFGHIJ.KMNOL");
-	}
 	
 	@Test
 	public void testSearch() {
