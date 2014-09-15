@@ -65,6 +65,7 @@ public class AStarSearcher implements Searcher {
 		nodeCount = 0;
 	}
 
+	@SuppressWarnings("boxing")
 	@Override
 	public LinkedList<Character> search(Node problem) {
 		frontier.clear();
