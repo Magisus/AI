@@ -18,9 +18,8 @@ public class AStarSearcher implements Searcher {
 
 	@Override
 	public void addToFrontier(Node node) {
-		if (!frontier.contains(node)) {
-			frontier.add(node);
-		}
+		frontier.add(node);
+		nodeCount++;
 	}
 
 	@Override
@@ -44,13 +43,7 @@ public class AStarSearcher implements Searcher {
 
 			@Override
 			public int compare(Node o1, Node o2) {
-				if(o1.evaluate() > o2.evaluate()){
-					return 1;
-				} else if(o1.evaluate() < o2.evaluate()){
-					return -1;
-				} else {
-					return 0;
-				}
+				return o1.compareTo(o2);
 			}
 		});
 
@@ -75,19 +68,17 @@ public class AStarSearcher implements Searcher {
 	@Override
 	public LinkedList<Character> search(Node problem) {
 		frontier.clear();
-		Map<String, Integer> map = new HashMap<String, Integer>();
+		Map<String, Integer> map = new HashMap<>();
 		addToFrontier(problem);
-		nodeCount++;
 		while (!frontier.isEmpty()) {
 			Node node = removeFromFrontier();
-			map.put(node.getState(), node.getDepth());
 			if (node.isGoal()) {
 				return node.path();
 			}
-			for (Node neighbor : node.expand()) {
-				if (!inShallower(neighbor, map) && !cutoff(neighbor)) {
+			if (!inShallower(node, map) && !cutoff(node)) {
+				map.put(node.getState(), node.getDepth());
+				for (Node neighbor : node.expand()) {
 					addToFrontier(neighbor);
-					nodeCount++;
 				}
 			}
 		}

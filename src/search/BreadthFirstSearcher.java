@@ -17,9 +17,8 @@ public class BreadthFirstSearcher implements Searcher {
 
 	@Override
 	public void addToFrontier(Node node) {
-		if (!frontier.contains(node)) {
 			frontier.add(node);
-		}
+			nodeCount++;
 	}
 
 	@Override
@@ -45,7 +44,7 @@ public class BreadthFirstSearcher implements Searcher {
 	@SuppressWarnings("boxing")
 	@Override
 	public boolean inShallower(Node node, Map<String, Integer> map) {
-		return map.containsKey(node.getState()) && map.get(node.getState()) < node.getDepth();
+		return map.get(node.getState()) != null && map.get(node.getState()) < node.getDepth();
 	}
 
 	@Override
@@ -65,17 +64,15 @@ public class BreadthFirstSearcher implements Searcher {
 		frontier.clear();
 		Map<String, Integer> map = new HashMap<>();
 		addToFrontier(problem);
-		nodeCount++;
 		while (!frontier.isEmpty()) {
 			Node node = removeFromFrontier();
-			map.put(node.getState(), node.getDepth());
 			if (node.isGoal()) {
 				return node.path();
 			}
-			for (Node neighbor : node.expand()) {
-				if (!inShallower(neighbor, map)) {
+			if (!inShallower(node, map)) {
+				map.put(node.getState(), node.getDepth());
+				for (Node neighbor : node.expand()) {
 					addToFrontier(neighbor);
-					nodeCount++;
 				}
 			}
 		}
