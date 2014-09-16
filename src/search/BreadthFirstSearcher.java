@@ -61,17 +61,17 @@ public class BreadthFirstSearcher implements Searcher {
 	@SuppressWarnings("boxing")
 	@Override
 	public LinkedList<Character> search(Node problem) {
-		frontier.clear();
+		frontier.clear();	//remove previous nodes from previous puzzles etc
 		Map<String, Integer> map = new HashMap<>();
-		addToFrontier(problem);
+		addToFrontier(problem);	//start queue with initial problem node
 		while (!frontier.isEmpty()) {
-			Node node = removeFromFrontier();
+			Node node = removeFromFrontier(); //get next node on queue
 			if (node.isGoal()) {
 				return node.path();
 			}
 			if (!inShallower(node, map)) {
-				map.put(node.getState(), node.getDepth());
-				for (Node neighbor : node.expand()) {
+				map.put(node.getState(), node.getDepth()); //add this state to map of checked states
+				for (Node neighbor : node.expand()) {	//add all neighbors of current node to queue
 					addToFrontier(neighbor);
 				}
 			}
