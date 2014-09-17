@@ -68,18 +68,18 @@ public class AStarSearcher implements Searcher {
 	@SuppressWarnings("boxing")
 	@Override
 	public LinkedList<Character> search(Node problem) {
-		frontier.clear();
+		frontier.clear(); //clear previous nodes from previous puzzles etc
 		Map<String, Integer> map = new HashMap<>();
-		addToFrontier(problem);
+		addToFrontier(problem); //start pq with first node
 		while (!frontier.isEmpty()) {
-			Node node = removeFromFrontier();
+			Node node = removeFromFrontier(); //get next node on pq
 			if (node.isGoal()) {
 				return node.path();
 			}
-			if (!inShallower(node, map) && !cutoff(node)) {
-				map.put(node.getState(), node.getDepth());
-				for (Node neighbor : node.expand()) {
-					addToFrontier(neighbor);
+			if (!inShallower(node, map) && !cutoff(node)) { 
+				map.put(node.getState(), node.getDepth()); //add this path to map of checked paths
+				for (Node neighbor : node.expand()) { //add neighbors to the frontier
+					addToFrontier(neighbor);  
 				}
 			}
 		}
