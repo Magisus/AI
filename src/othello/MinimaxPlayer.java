@@ -14,34 +14,46 @@ public class MinimaxPlayer implements Player {
 
 	@Override
 	public int move(State state) {
-		return move(state, 0, color);
-	}
-
-	public int move(State state, int depth, char colorToPlay) {
+		//Return the move with the best score
 		int bestMove = -1;
-		List<Integer> legalMoves = state.legalMoves();
-		for (int currentMove : legalMoves) {
+		int bestScore = color == 'X' ? -101 : 101;
+		for(int child : state.legalMoves()){
 			State copy = state.copy();
-			copy.play(currentMove);
-			if (colorToPlay == 'X') {
-				int bestScore = -101;
-				//TODO We need to find the score and recur, somewhere
-				if (bestScore < score) {
+			copy.play(child);
+			int score = findScore(copy, 1, color);
+			if(color == 'X'){
+				if(score > bestScore){
 					bestScore = score;
-					bestMove = currentMove;
+					bestMove = child;
 				}
 			} else {
-				int bestScore = 101;
-				int score = depth + 1 == maxSearchDepth ? copy.score() : move(copy, depth
-						+ 1, State.opposite(colorToPlay));
-				if (bestScore > score) {
+				if(score < bestScore){
 					bestScore = score;
-					bestMove = currentMove;
+					bestMove = child;
 				}
 			}
 		}
-		System.out.println(bestMove);
 		return bestMove;
+	}
+
+	public int findScore(State state, int depth, char colorToPlay) {
+		if(depth == maxSearchDepth){
+			return state.score();
+		}
+		
+		List<Integer> legalMoves = state.legalMoves();
+		int bestScore = colorToPlay == 'X' ? -101 : 101;
+		for (int currentMove : legalMoves) {
+			State copy = state.copy();
+			copy.play(currentMove);
+			int score = findScore(copy, depth + 1, State.opposite(colorToPlay));
+			if (colorToPlay == 'X') {
+				bestScore = Math.max(score, bestScore);
+			} else {
+				bestScore = Math.min(score, bestScore);
+			}
+		}
+		return bestScore;
 	}
 
 }
