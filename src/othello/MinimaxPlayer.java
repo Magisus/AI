@@ -20,7 +20,7 @@ public class MinimaxPlayer implements Player {
 		for(int child : state.legalMoves()){
 			State copy = state.copy(); 
 			copy.play(child);	
-			int score = findScore(copy, 1, color);
+			int score = findScore(copy, 1, State.opposite(color));
 			if(color == 'X'){
 				if(score > bestScore){	//if this play has the best score, store the move for return
 					bestScore = score;
@@ -53,6 +53,7 @@ public class MinimaxPlayer implements Player {
 		for (int currentMove : legalMoves) {
 			State copy = state.copy();
 			copy.play(currentMove);
+			System.out.println(copy.toString());
 			int score = findScore(copy, depth + 1, State.opposite(colorToPlay)); //search down until leaf, then return scores up
 			if (colorToPlay == 'X') { 											//once have score, compare for max or min and set to best
 				bestScore = Math.max(score, bestScore);

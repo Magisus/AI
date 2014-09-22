@@ -20,7 +20,7 @@ public class AlphaBetaPlayer implements Player {
 		for (int child : state.legalMoves()) {
 			State copy = state.copy();
 			copy.play(child);
-			int score = findScore(copy, -101, 101, 1, color);
+			int score = findScore(copy, -101, 101, 1, State.opposite(color));
 			if (color == 'X') {
 				if (score > bestScore) {
 					bestScore = score;

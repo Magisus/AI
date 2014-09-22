@@ -8,6 +8,11 @@ import static othello.State.*;
 public class Gui {
 
 	public static void main(String[] args) {
+//		for(int depth = 1; depth <=7; depth++){
+//			for(int i = 0; i < 2; i++){
+//				
+//			}
+//		}
 		new Gui().run();
 	}
 	
@@ -15,7 +20,7 @@ public class Gui {
 	public void run() {
 		show(0);
 		State board = new State();
-		Player[] players = {new MinimaxPlayer(2, 'X'), new MinimaxPlayer(1, 'O')};
+		Player[] players = {new AlphaBetaPlayer(2, 'X'), new AlphaBetaPlayer(1, 'O')};
 		while (!board.gameOver()) {
 			int move;
 			if (board.getColorToPlay() == 'X') {
