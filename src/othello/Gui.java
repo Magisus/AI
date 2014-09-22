@@ -8,35 +8,40 @@ import static othello.State.*;
 public class Gui {
 
 	public static void main(String[] args) {
-		for(int depth = 1; depth <=7; depth++){
-			for(int i = 0; i < 2; i++){				
+		for (int depth1 = 1; depth1 <= 7; depth1++) {
+			for (int depth2 = 1; depth2 <= 7; depth2++) {
+				System.out.println(new Gui().run(new AlphaBetaPlayer(depth1, 'X'), new MinimaxPlayer(depth2, 'O')));
+				System.out.println(new Gui().run(new MinimaxPlayer(depth1, 'X'), new AlphaBetaPlayer(depth2, 'O')));
+				System.out.println();
 			}
 		}
-		new Gui().run(new AlphaBetaPlayer(2, 'X'), new MinimaxPlayer(4, 'O'));
 	}
-	
+
 	/** Plays the game. */
-	public void run(Player player1, Player player2) {
-		show(0);
-		System.out.println("Player 1: " + player1.getClass().getName() + " at depth " + player1.getMaxSearchDepth());
-		System.out.println("Player 2: " + player2.getClass().getName() + " at depth " + player2.getMaxSearchDepth());
+	public String run(Player player1, Player player2) {
+//		show(0);
+		System.out.println("Player 1: " + player1.getClass().getName()
+				+ " at depth " + player1.getMaxSearchDepth());
+		System.out.println("Player 2: " + player2.getClass().getName()
+				+ " at depth " + player2.getMaxSearchDepth());
 		State board = new State();
 		while (!board.gameOver()) {
 			int move;
 			if (board.getColorToPlay() == 'X') {
-				draw(board, "Black to play. Click here if no legal move.", 0);
+//				draw(board, "Black to play. Click here if no legal move.", 0);
 				move = player1.move(board);
 			} else {
-				draw(board, "White to play. Click here if no legal move.", 0);
-				move = player2.move(board);				
+//				draw(board, "White to play. Click here if no legal move.", 0);
+				move = player2.move(board);
 			}
 			if (board.legalMoves().contains(move)) {
 				board.play(move);
 			} else {
-				draw(board, "Illegal move.", 1000);
+//				draw(board, "Illegal move.", 1000);
 			}
 		}
-		System.out.println("Player 1 node count: " + player1.getNodeCount() + "  Player 2 node count: " + player2.getNodeCount());
+		System.out.println("Player 1 node count: " + player1.getNodeCount()
+				+ "  Player 2 node count: " + player2.getNodeCount());
 		String result = "Game over. ";
 		if (board.score() > 0) {
 			result += "Black wins!";
@@ -45,9 +50,10 @@ public class Gui {
 		} else {
 			result += "Tie";
 		}
-		draw(board, result, 0);
+		return result;
+//		draw(board, result, 0);
 	}
-	
+
 	/**
 	 * Draws the board and displays message, then pauses for pause milliseconds.
 	 */
