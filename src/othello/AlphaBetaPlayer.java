@@ -6,10 +6,15 @@ public class AlphaBetaPlayer implements Player {
 
 	private char color;
 	private int maxSearchDepth;
+	private int nodeCount;
 
 	public AlphaBetaPlayer(int maxSearchDepth, char color) {
 		this.maxSearchDepth = maxSearchDepth;
 		this.color = color;
+	}
+	
+	public int getNodeCount(){
+		return nodeCount;
 	}
 
 	@Override
@@ -37,6 +42,7 @@ public class AlphaBetaPlayer implements Player {
 	}
 
 	private int findScore(State state, int alpha, int beta, int depth, char colorToPlay) {
+		nodeCount++;
 		if (depth == maxSearchDepth) {
 			return state.score();
 		}
@@ -64,6 +70,11 @@ public class AlphaBetaPlayer implements Player {
 			}
 		}
 		return beta;
+	}
+
+	@Override
+	public int getMaxSearchDepth() {
+		return maxSearchDepth;
 	}
 
 }
