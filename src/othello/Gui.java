@@ -12,6 +12,8 @@ public class Gui {
 			for (int depth2 = 1; depth2 <= 7; depth2++) {
 				System.out.println(new Gui().run(new AlphaBetaPlayer(depth1, 'X'), new MinimaxPlayer(depth2, 'O')));
 				System.out.println(new Gui().run(new MinimaxPlayer(depth1, 'X'), new AlphaBetaPlayer(depth2, 'O')));
+				System.out.println(new Gui().run(new AlphaBetaPlayer(depth1, 'X'), new AlphaBetaPlayer(depth2, 'O')));
+				System.out.println(new Gui().run(new MinimaxPlayer(depth1, 'X'), new MinimaxPlayer(depth2, 'O')));
 				System.out.println();
 			}
 		}
