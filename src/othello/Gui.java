@@ -15,7 +15,7 @@ public class Gui {
 	public void run() {
 		show(0);
 		State board = new State();
-		Player[] players = {new MinimaxPlayer(5, 'X'), new MinimaxPlayer(2, 'O')};
+		Player[] players = {new MinimaxPlayer(2, 'X'), new MinimaxPlayer(1, 'O')};
 		while (!board.gameOver()) {
 			int move;
 			if (board.getColorToPlay() == 'X') {
