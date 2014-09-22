@@ -8,22 +8,27 @@ import static othello.State.*;
 public class Gui {
 
 	public static void main(String[] args) {
-		new Gui().run();
+		for(int depth = 1; depth <=7; depth++){
+			for(int i = 0; i < 2; i++){				
+			}
+		}
+		new Gui().run(new AlphaBetaPlayer(2, 'X'), new MinimaxPlayer(4, 'O'));
 	}
 	
 	/** Plays the game. */
-	public void run() {
+	public void run(Player player1, Player player2) {
 		show(0);
+		System.out.println("Player 1: " + player1.getClass().getName() + " at depth " + player1.getMaxSearchDepth());
+		System.out.println("Player 2: " + player2.getClass().getName() + " at depth " + player2.getMaxSearchDepth());
 		State board = new State();
-		Player[] players = {new MinimaxPlayer(1, 'X'), new MinimaxPlayer(2, 'O')};
 		while (!board.gameOver()) {
 			int move;
 			if (board.getColorToPlay() == 'X') {
 				draw(board, "Black to play. Click here if no legal move.", 0);
-				move = players[0].move(board);
+				move = player1.move(board);
 			} else {
 				draw(board, "White to play. Click here if no legal move.", 0);
-				move = players[1].move(board);				
+				move = player2.move(board);				
 			}
 			if (board.legalMoves().contains(move)) {
 				board.play(move);
@@ -31,6 +36,7 @@ public class Gui {
 				draw(board, "Illegal move.", 1000);
 			}
 		}
+		System.out.println("Player 1 node count: " + player1.getNodeCount() + "  Player 2 node count: " + player2.getNodeCount());
 		String result = "Game over. ";
 		if (board.score() > 0) {
 			result += "Black wins!";

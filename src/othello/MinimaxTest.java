@@ -16,17 +16,17 @@ public class MinimaxTest {
 		State state = new State(new char[][] {
 				"........".toCharArray(),
 				"........".toCharArray(),
-				"..X.....".toCharArray(),
-				".XOO....".toCharArray(),
-				"..O.....".toCharArray(),
-				"..O.....".toCharArray(),
 				"........".toCharArray(),
+				".OOX....".toCharArray(),
+				"..O.....".toCharArray(),
+				"..O.....".toCharArray(),
+				"..X.....".toCharArray(),
 				"..O.....".toCharArray() },
 				'X');
 		MinimaxPlayer playerX = new MinimaxPlayer(1, 'X');
-		assertEquals(50, playerX.move(state));
-		playerX = new MinimaxPlayer(3, 'X');
-		assertEquals(28, playerX.move(state));
+		assertEquals(18, playerX.move(state));
+		playerX = new MinimaxPlayer(2, 'X');
+		assertEquals(24, playerX.move(state));
 	}
 
 }

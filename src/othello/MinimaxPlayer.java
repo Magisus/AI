@@ -6,12 +6,17 @@ public class MinimaxPlayer implements Player {
 
 	private int maxSearchDepth;
 	private char color;
+	private int nodeCount;
 
 	public MinimaxPlayer(int maxSearchDepth, char color) {
 		this.maxSearchDepth = maxSearchDepth;
 		this.color = color;
 	}
 
+	public int getNodeCount(){
+		return nodeCount;
+	}
+	
 	@Override
 	public int move(State state) {
 		//Return the move with the best score
@@ -20,7 +25,7 @@ public class MinimaxPlayer implements Player {
 		for(int child : state.legalMoves()){
 			State copy = state.copy(); 
 			copy.play(child);	
-			int score = findScore(copy, 1, color);
+			int score = findScore(copy, 1, State.opposite(color));
 			if(color == 'X'){
 				if(score > bestScore){	//if this play has the best score, store the move for return
 					bestScore = score;
@@ -44,6 +49,7 @@ public class MinimaxPlayer implements Player {
 	 * @return
 	 */
 	public int findScore(State state, int depth, char colorToPlay) {
+		nodeCount++;
 		if(depth == maxSearchDepth){ //once at leaf, return the score of that state
 			return state.score();
 		}
@@ -61,6 +67,11 @@ public class MinimaxPlayer implements Player {
 			}
 		}
 		return bestScore;
+	}
+
+	@Override
+	public int getMaxSearchDepth() {
+		return maxSearchDepth;
 	}
 
 }
