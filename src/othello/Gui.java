@@ -16,7 +16,6 @@ public class Gui {
 		StringBuilder node1 = new StringBuilder();
 		StringBuilder node2 = new StringBuilder();
 		StringBuilder winner = new StringBuilder();
-		
 		//run tourney for Minimax as X and Mini as O, then Minimax as X and Alpha as O
 		for (int depth1 = 1; depth1 <= 7; depth1++) {
 			for (int i = 0; i < 2; i++){
