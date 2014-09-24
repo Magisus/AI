@@ -4,13 +4,11 @@ import java.util.List;
 
 public class AlphaBetaPlayer implements Player {
 
-	private char color;
 	private int maxSearchDepth;
 	private int nodeCount;
 
-	public AlphaBetaPlayer(int maxSearchDepth, char color) {
+	public AlphaBetaPlayer(int maxSearchDepth) {
 		this.maxSearchDepth = maxSearchDepth;
-		this.color = color;
 	}
 	
 	public int getNodeCount(){
@@ -21,6 +19,7 @@ public class AlphaBetaPlayer implements Player {
 	public int move(State state) {
 		// Return the move with the best score
 		int bestMove = -1;
+		char color = state.getColorToPlay();
 		int bestScore = color == 'X' ? -101 : 101;
 		for (int child : state.legalMoves()) {
 			State copy = state.copy();
