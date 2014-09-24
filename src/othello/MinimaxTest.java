@@ -7,10 +7,6 @@ import org.junit.Test;
 
 public class MinimaxTest {
 
-	@Before
-	public void setUp() throws Exception {
-	}
-
 	@Test
 	public void depthTest() {
 		State state = new State(new char[][] {
