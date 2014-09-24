@@ -36,8 +36,4 @@ public class HumanPlayer implements Player {
 		return 0;
 	}
 
-	@Override
-	public int getMaxSearchDepth(){
-		return 0;
-	}
 }

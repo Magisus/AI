@@ -16,18 +16,17 @@ public class Gui {
 		StringBuilder node1 = new StringBuilder();
 		StringBuilder node2 = new StringBuilder();
 		StringBuilder winner = new StringBuilder();
-		
 		//run tourney for Minimax as X and Mini as O, then Minimax as X and Alpha as O
 		for (int depth1 = 1; depth1 <= 7; depth1++) {
 			for (int i = 0; i < 2; i++){
 				if (i == 0 ) {
 					for (int depth2 = 1; depth2 <= 7; depth2++) {
-						new Gui().run(new MinimaxPlayer(depth1, 'X'), new MinimaxPlayer(depth2, 'O'), node1, node2, winner);
+						new Gui().run(new MinimaxPlayer(depth1), new MinimaxPlayer(depth2), node1, node2, winner);
 					}
 				}
 				if (i == 1 ) {
 					for (int depth2 = 1; depth2 <= 7; depth2++) {
-						new Gui().run(new MinimaxPlayer(depth1, 'X'), new AlphaBetaPlayer(depth2, 'O'), node1, node2, winner);
+						new Gui().run(new MinimaxPlayer(depth1), new AlphaBetaPlayer(depth2), node1, node2, winner);
 					}
 				}
 			}
@@ -39,12 +38,12 @@ public class Gui {
 			for (int i = 0; i < 2; i++){
 				if (i == 0 ) {
 					for (int depth2 = 1; depth2 <= 7; depth2++) {
-						new Gui().run(new AlphaBetaPlayer(depth1, 'X'), new MinimaxPlayer(depth2, 'O'), node1, node2, winner);
+						new Gui().run(new AlphaBetaPlayer(depth1), new MinimaxPlayer(depth2), node1, node2, winner);
 					}
 				}
 				if (i == 1 ) {
 					for (int depth2 = 1; depth2 <= 7; depth2++) {
-						new Gui().run(new AlphaBetaPlayer(depth1, 'X'), new AlphaBetaPlayer(depth2, 'O'), node1, node2, winner);
+						new Gui().run(new AlphaBetaPlayer(depth1), new AlphaBetaPlayer(depth2), node1, node2, winner);
 					}
 				}
 			}
