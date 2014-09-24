@@ -26,12 +26,12 @@ public class AlphaBetaPlayer implements Player {
 			copy.play(child);
 			int score = findScore(copy, -101, 101, 1, State.opposite(color));
 			if (color == 'X') {
-				if (score > bestScore) {
+				if (score > bestScore) { //If this play has the best score, store the move for return
 					bestScore = score;
 					bestMove = child;
 				}
 			} else {
-				if (score < bestScore) {
+				if (score < bestScore) { //Same for player2
 					bestScore = score;
 					bestMove = child;
 				}
@@ -42,7 +42,7 @@ public class AlphaBetaPlayer implements Player {
 
 	private int findScore(State state, int alpha, int beta, int depth, char colorToPlay) {
 		nodeCount++;
-		if (depth == maxSearchDepth) {
+		if (depth == maxSearchDepth) { //Once at leaf, return the score of that state
 			return state.score();
 		}
 
@@ -50,21 +50,22 @@ public class AlphaBetaPlayer implements Player {
 		if (colorToPlay == 'X') {
 			for (int currentMove : legalMoves) {
 				State copy = state.copy();
-				copy.play(currentMove);
+				copy.play(currentMove); 
 				alpha = Math.max(alpha,
-						findScore(copy, alpha, beta, depth + 1, State.opposite(colorToPlay)));
-				if (beta <= alpha) {
+						findScore(copy, alpha, beta, depth + 1, State.opposite(colorToPlay))); //Find the best score we can from here recursively
+				if (beta <= alpha) { // If this move is too good to reach, don't analyze from here. Cut this node off. 
 					break;
 				}
 			}
-			return alpha;
+			return alpha; //Otherwise return this score 
 		}
+		//Do the same as above from perspective of min player
 		for (int currentMove : legalMoves) {
 			State copy = state.copy();
 			copy.play(currentMove);
 			beta = Math.min(beta,
 					findScore(copy, alpha, beta, depth + 1, State.opposite(colorToPlay)));
-			if (beta <= alpha) {
+			if (beta <= alpha) { 
 				break;
 			}
 		}
