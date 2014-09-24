@@ -72,9 +72,5 @@ public class AlphaBetaPlayer implements Player {
 		return beta;
 	}
 
-	@Override
-	public int getMaxSearchDepth() {
-		return maxSearchDepth;
-	}
 
 }

@@ -68,9 +68,4 @@ public class MinimaxPlayer implements Player {
 		return bestScore;
 	}
 
-	@Override
-	public int getMaxSearchDepth() {
-		return maxSearchDepth;
-	}
-
 }

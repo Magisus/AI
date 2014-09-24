@@ -8,6 +8,4 @@ public interface Player {
 	
 	public int getNodeCount();
 	
-	public int getMaxSearchDepth();
-	
 }
