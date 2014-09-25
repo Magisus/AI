@@ -13,60 +13,60 @@ public class Gui {
 	//print mini 1 vs alpha 2 
 	public static void main(String[] args) {
 		
-		StringBuilder node1 = new StringBuilder();
-		StringBuilder node2 = new StringBuilder();
-		StringBuilder winner = new StringBuilder();
-		//run tourney for Minimax as X and Mini as O, then Minimax as X and Alpha as O
-		for (int depth1 = 1; depth1 <= 7; depth1++) {
-			for (int i = 0; i < 2; i++){
-				if (i == 0 ) {
-					for (int depth2 = 1; depth2 <= 7; depth2++) {
-						new Gui().run(new MinimaxPlayer(depth1), new MinimaxPlayer(depth2), node1, node2, winner);
-					}
-				}
-				if (i == 1 ) {
-					for (int depth2 = 1; depth2 <= 7; depth2++) {
-						new Gui().run(new MinimaxPlayer(depth1), new AlphaBetaPlayer(depth2), node1, node2, winner);
-					}
-				}
-			}
-			node1.append("\n"); node2.append("\n"); winner.append("\n");
-		}
-		
-		//run tourney for Alpha as X and Mini as O, then Alpha as X and Alpha as O
-		for (int depth1 = 1; depth1 <= 7; depth1++) {
-			for (int i = 0; i < 2; i++){
-				if (i == 0 ) {
-					for (int depth2 = 1; depth2 <= 7; depth2++) {
-						new Gui().run(new AlphaBetaPlayer(depth1), new MinimaxPlayer(depth2), node1, node2, winner);
-					}
-				}
-				if (i == 1 ) {
-					for (int depth2 = 1; depth2 <= 7; depth2++) {
-						new Gui().run(new AlphaBetaPlayer(depth1), new AlphaBetaPlayer(depth2), node1, node2, winner);
-					}
-				}
-			}
-			node1.append("\n"); node2.append("\n"); winner.append("\n");
-		}
-		
-		//print results
-		try(PrintWriter writer = new PrintWriter("Node1.csv")){
-			writer.print(node1);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try(PrintWriter writer = new PrintWriter("Node2.csv")){
-			writer.print(node2);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try(PrintWriter writer = new PrintWriter("Winner.csv")){
-			writer.print(winner);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
+//		StringBuilder node1 = new StringBuilder();
+//		StringBuilder node2 = new StringBuilder();
+//		StringBuilder winner = new StringBuilder();
+//		//run tourney for Minimax as X and Mini as O, then Minimax as X and Alpha as O
+//		for (int depth1 = 1; depth1 <= 7; depth1++) {
+//			for (int i = 0; i < 2; i++){
+//				if (i == 0 ) {
+//					for (int depth2 = 1; depth2 <= 7; depth2++) {
+//						new Gui().run(new MinimaxPlayer(depth1), new MinimaxPlayer(depth2), node1, node2, winner);
+//					}
+//				}
+//				if (i == 1 ) {
+//					for (int depth2 = 1; depth2 <= 7; depth2++) {
+//						new Gui().run(new MinimaxPlayer(depth1), new AlphaBetaPlayer(depth2), node1, node2, winner);
+//					}
+//				}
+//			}
+//			node1.append("\n"); node2.append("\n"); winner.append("\n");
+//		}
+//		
+//		//run tourney for Alpha as X and Mini as O, then Alpha as X and Alpha as O
+//		for (int depth1 = 1; depth1 <= 7; depth1++) {
+//			for (int i = 0; i < 2; i++){
+//				if (i == 0 ) {
+//					for (int depth2 = 1; depth2 <= 7; depth2++) {
+//						new Gui().run(new AlphaBetaPlayer(depth1), new MinimaxPlayer(depth2), node1, node2, winner);
+//					}
+//				}
+//				if (i == 1 ) {
+//					for (int depth2 = 1; depth2 <= 7; depth2++) {
+//						new Gui().run(new AlphaBetaPlayer(depth1), new AlphaBetaPlayer(depth2), node1, node2, winner);
+//					}
+//				}
+//			}
+//			node1.append("\n"); node2.append("\n"); winner.append("\n");
+//		}
+//		
+//		//print results
+//		try(PrintWriter writer = new PrintWriter("Node1.csv")){
+//			writer.print(node1);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		try(PrintWriter writer = new PrintWriter("Node2.csv")){
+//			writer.print(node2);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+//		try(PrintWriter writer = new PrintWriter("Winner.csv")){
+//			writer.print(winner);
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		}
+		new Gui().run(new MinimaxPlayer(7), new MinimaxPlayer(1), new StringBuilder(), new StringBuilder(), new StringBuilder());
 	}
 
 	/** Plays the game. */

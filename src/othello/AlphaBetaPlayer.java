@@ -72,5 +72,9 @@ public class AlphaBetaPlayer implements Player {
 		return beta;
 	}
 
+	@Override
+	public String toString(){
+		return "Alphabeta Player depth " + maxSearchDepth;
+	}
 
 }
