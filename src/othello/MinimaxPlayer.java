@@ -18,7 +18,7 @@ public class MinimaxPlayer implements Player {
 	@Override
 	public int move(State state) {
 		//Return the move with the best score
-		int bestMove = -1; //TODO this holds the value PASS; do we want that? 
+		int bestMove = -1;
 		char color = state.getColorToPlay();
 		int bestScore = color == 'X' ? -101 : 101; //initialize best score as impossibly low/high depending on player for comparison 
 		for(int child : state.legalMoves()){
@@ -66,6 +66,11 @@ public class MinimaxPlayer implements Player {
 			}
 		}
 		return bestScore;
+	}
+	
+	@Override
+	public String toString(){
+		return "Minimax player depth " + maxSearchDepth;
 	}
 
 }

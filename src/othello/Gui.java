@@ -1,110 +1,47 @@
 package othello;
 
 import java.awt.Color;
-import java.io.FileNotFoundException;
-import java.io.PrintWriter;
-
 import static edu.princeton.cs.introcs.StdDraw.*;
 import static othello.State.*;
 
 /** Graphic user interface for Othello. */
-public class Gui {	
+public class Gui {
 
-	//print mini 1 vs alpha 2 
 	public static void main(String[] args) {
-		
-		StringBuilder node1 = new StringBuilder();
-		StringBuilder node2 = new StringBuilder();
-		StringBuilder winner = new StringBuilder();
-		//run tourney for Minimax as X and Mini as O, then Minimax as X and Alpha as O
-		for (int depth1 = 1; depth1 <= 7; depth1++) {
-			for (int i = 0; i < 2; i++){
-				if (i == 0 ) {
-					for (int depth2 = 1; depth2 <= 7; depth2++) {
-						new Gui().run(new MinimaxPlayer(depth1), new MinimaxPlayer(depth2), node1, node2, winner);
-					}
-				}
-				if (i == 1 ) {
-					for (int depth2 = 1; depth2 <= 7; depth2++) {
-						new Gui().run(new MinimaxPlayer(depth1), new AlphaBetaPlayer(depth2), node1, node2, winner);
-					}
-				}
-			}
-			node1.append("\n"); node2.append("\n"); winner.append("\n");
-		}
-		
-		//run tourney for Alpha as X and Mini as O, then Alpha as X and Alpha as O
-		for (int depth1 = 1; depth1 <= 7; depth1++) {
-			for (int i = 0; i < 2; i++){
-				if (i == 0 ) {
-					for (int depth2 = 1; depth2 <= 7; depth2++) {
-						new Gui().run(new AlphaBetaPlayer(depth1), new MinimaxPlayer(depth2), node1, node2, winner);
-					}
-				}
-				if (i == 1 ) {
-					for (int depth2 = 1; depth2 <= 7; depth2++) {
-						new Gui().run(new AlphaBetaPlayer(depth1), new AlphaBetaPlayer(depth2), node1, node2, winner);
-					}
-				}
-			}
-			node1.append("\n"); node2.append("\n"); winner.append("\n");
-		}
-		
-		//print results
-		try(PrintWriter writer = new PrintWriter("Node1.csv")){
-			writer.print(node1);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try(PrintWriter writer = new PrintWriter("Node2.csv")){
-			writer.print(node2);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		try(PrintWriter writer = new PrintWriter("Winner.csv")){
-			writer.print(winner);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		
+		new Gui().run();
 	}
-
+	
 	/** Plays the game. */
-	public String run(Player player1, Player player2, StringBuilder node1, StringBuilder node2, StringBuilder winner) {
-//		show(0);
+	public void run() {
+		show(0);
 		State board = new State();
+		Player[] players = {new HumanPlayer(), new HumanPlayer()};
 		while (!board.gameOver()) {
 			int move;
 			if (board.getColorToPlay() == 'X') {
-//				draw(board, "Black to play. Click here if no legal move.", 0);
-				move = player1.move(board);
+				draw(board, "Black to play. Click here if no legal move.", 0);
+				move = players[0].move(board);
 			} else {
-//				draw(board, "White to play. Click here if no legal move.", 0);
-				move = player2.move(board);
+				draw(board, "White to play. Click here if no legal move.", 0);
+				move = players[1].move(board);				
 			}
 			if (board.legalMoves().contains(move)) {
 				board.play(move);
 			} else {
-//				draw(board, "Illegal move.", 1000);
+				draw(board, "Illegal move.", 1000);
 			}
 		}
-		node1.append(player1.getNodeCount() + ", ");
-		node2.append(player2.getNodeCount() + ", ");
 		String result = "Game over. ";
 		if (board.score() > 0) {
-			winner.append("true, ");
 			result += "Black wins!";
 		} else if (board.score() < 0) {
-			winner.append("false, ");
 			result += "White wins!";
 		} else {
-			winner.append("tie, ");
 			result += "Tie";
 		}
-		return result;
-//		draw(board, result, 0);
+		draw(board, result, 0);
 	}
-
+	
 	/**
 	 * Draws the board and displays message, then pauses for pause milliseconds.
 	 */

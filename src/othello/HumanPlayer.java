@@ -31,9 +31,5 @@ public class HumanPlayer implements Player {
 		return "Human";
 	}
 
-	@Override
-	public int getNodeCount() {
-		return 0;
-	}
 
 }
