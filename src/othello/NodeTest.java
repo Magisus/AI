@@ -19,5 +19,7 @@ public class NodeTest {
 		assertEquals(1, root.getChildren().size());
 		assertEquals(child, root.getChildren().get(23));
 	}
+	
+	
 
 }
