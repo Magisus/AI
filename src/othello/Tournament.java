@@ -25,8 +25,9 @@ public class Tournament {
 
 	public Tournament() {
 		players = new ArrayList<Player>();
-		for (int depth = 1; depth <= 3; depth++) {
+		for (int depth = 1; depth <= 7; depth++) {
 			players.add(new MinimaxPlayer(depth));
+			players.add(new AlphaBetaPlayer(depth));
 		}
 	}
 
@@ -95,7 +96,7 @@ public class Tournament {
 			}
 			System.out.println("Total: " + sum);
 		}
-		System.out.println("Elapsed time (nanoseconds):");
+//		System.out.println("Elapsed time (nanoseconds):");
 	}
 
 }
