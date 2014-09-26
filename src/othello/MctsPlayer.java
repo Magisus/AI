@@ -1,6 +1,6 @@
 package othello;
 
-public class MonteCarloPlayer implements Player {
+public class MctsPlayer implements Player {
 
 	@Override
 	public int move(State state) {
