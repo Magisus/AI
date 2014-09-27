@@ -31,13 +31,5 @@ public class HumanPlayer implements Player {
 		return "Human";
 	}
 
-	@Override
-	public int getNodeCount() {
-		return 0;
-	}
 
-	@Override
-	public int getMaxSearchDepth(){
-		return 0;
-	}
 }
