@@ -42,17 +42,9 @@ public class Tournament {
 			if (board.getColorToPlay() == 'X') {
 				move = black.move(board);
 				elapsedTime[0] += System.nanoTime() - before;
-				if (elapsedTime[0] > TIME_LIMIT) {
-					System.out.println("BLACK FORFEITS ON TIME");
-					return 0;
-				}
 			} else {
 				move = white.move(board);
 				elapsedTime[1] += System.nanoTime() - before;
-				if (elapsedTime[1] > TIME_LIMIT) {
-					System.out.println("WHITE FORFEITS ON TIME");
-					return 1;
-				}
 			}
 			if (board.legalMoves().contains(move)) {
 				board.play(move);

@@ -12,10 +12,10 @@ public class Node {
 	private int playOuts;
 	
 	/** Children of this node. */
-	private Map<Integer, Node> children;
+	private TreeMap<Integer, Node> children;
 	
 	public Node() {
-		children = new TreeMap<Integer, Node>(); 
+		children = new TreeMap<>(); 
 		// 1/2 win rate to intialize all nodes
 		wins = 1;
 		playOuts = 2;
@@ -42,7 +42,7 @@ public class Node {
 		this.playOuts++;
 	}
 
-	public Map<Integer, Node> getChildren() {
+	public TreeMap<Integer, Node> getChildren() {
 		return children;
 	}
 	

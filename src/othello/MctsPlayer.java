@@ -1,6 +1,8 @@
 package othello;
 
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 public class MctsPlayer implements Player {
 	
@@ -29,20 +31,47 @@ public class MctsPlayer implements Player {
 				bestNode = child; 
 				}
 		}
-		for (Map.Entry entry : root.getChildren().entrySet()) { // next check each entry in map and see if it contains our best node.
+		for (Map.Entry<Integer, Node> entry : root.getChildren().entrySet()) { // next check each entry in map and see if it contains our best node.
 			if ( bestNode.equals(entry.getValue()) ) {			// if it contains best node, return that entries key (the move)
-				return (int)entry.getKey();
+				return entry.getKey();
 			}
 		}
 		
 		return -1;
 	}
 
-	private void performPlayout(State state, Node node) {
-		
-		
-		
+	private char performPlayout(State state, Node node) {
+		TreeMap<Integer, Node> children = node.getChildren();
+		if(children.size() == 0){
+			List<Integer> legalMoves = state.legalMoves();
+			State copy = state.copy();
+			int move = legalMoves.get((int)(Math.random() * legalMoves.size()));
+			copy.play(move);
+			char winner = winnerAtEnd(copy);
+			Node newChild = new Node();
+			node.addChild(move, new Node());
+			if(winner == state.getColorToPlay()){
+				node.addWin();
+			} else { //This will add losses for ties
+				node.addLoss();
+			}
+		}
+		return 'T';
 	}
 
+	private char winnerAtEnd(State state){
+		State copy = state.copy();
+		while(!copy.gameOver()){
+			List<Integer>moves = copy.legalMoves();
+			copy.play(moves.get((int)(Math.random() * moves.size())));
+		}
+		if(copy.score() < 0){
+			return 'X';
+		} else if(copy.score() == 0){
+			return 'T';
+		} else {
+			return 'O';
+		}
+	}
 
 }
