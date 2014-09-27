@@ -74,4 +74,12 @@ public class MctsPlayer implements Player {
 		}
 	}
 
+	public void setRoot(Node node) {
+		root = node;		
+	}
+
+	public Node getRoot() {
+		return root;
+	}
+
 }

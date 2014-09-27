@@ -25,10 +25,11 @@ public class Tournament {
 
 	public Tournament() {
 		players = new ArrayList<Player>();
-		for (int depth = 1; depth <= 7; depth++) {
-			players.add(new MinimaxPlayer(depth));
-			players.add(new AlphaBetaPlayer(depth));
-		}
+//		for (int depth = 1; depth <= 7; depth++) {
+//			players.add(new AlphaBetaPlayer(depth));
+//		}
+		players.add(new MinimaxPlayer(7));
+		players.add(new AlphaBetaPlayer(7));
 	}
 
 	/** Plays one game between two players. Returns 1 if black wins, 0 if white wins, 0.5 in case of a tie. */
