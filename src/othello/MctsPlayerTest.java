@@ -66,7 +66,7 @@ public class MctsPlayerTest {
 		state = new State(board, 'X');
 		player.setRoot(new Node());
 		for (int i = 0; i < 100; i++) {
-			player.playout(state.copy());
+			player.performPlayout(state.copy(), player.getRoot());
 		}
 		assertEquals("<root>\t(100 playouts)\n\t56: 1.000\t(99 playouts)\n\t56: \t63: 0.000\t(98 playouts)\n\t63: 0.000\t(1 playouts)\n", player.getRoot().toString());
 	}

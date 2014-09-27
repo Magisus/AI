@@ -1,5 +1,6 @@
 package othello;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -40,14 +41,14 @@ public class MctsPlayer implements Player {
 		return -1;
 	}
 
-	private char performPlayout(State state, Node node) {
+	char performPlayout(State state, Node node) {
 		TreeMap<Integer, Node> children = node.getChildren();
 		if(children.size() == 0){
 			List<Integer> legalMoves = state.legalMoves();
 			State copy = state.copy();
 			int move = legalMoves.get((int)(Math.random() * legalMoves.size()));
 			copy.play(move);
-			char winner = winnerAtEnd(copy);
+			char winner = finishPlayout(copy, new ArrayList<Integer>());
 			Node newChild = new Node();
 			node.addChild(move, new Node());
 			if(winner == state.getColorToPlay()){
@@ -59,10 +60,10 @@ public class MctsPlayer implements Player {
 		return 'T';
 	}
 
-	private char winnerAtEnd(State state){
+	char finishPlayout(State state, List<Integer> moves){
 		State copy = state.copy();
 		while(!copy.gameOver()){
-			List<Integer>moves = copy.legalMoves();
+			List<Integer> legalMoves = copy.legalMoves();
 			copy.play(moves.get((int)(Math.random() * moves.size())));
 		}
 		if(copy.score() < 0){
