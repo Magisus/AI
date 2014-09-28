@@ -71,7 +71,6 @@ public class MctsPlayer implements Player {
 		// check for unplayed values
 		Node nodeToPlay = null;
 		List<Integer> unplayed = null;
-		int i = 0;
 		for (Map.Entry<Integer, Node> entry : node.getChildren().entrySet()) {
 			if (entry.getValue().getPlayOuts() == 0) { unplayed.add(entry.getKey()); }
 		}
