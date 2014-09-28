@@ -67,7 +67,7 @@ public class MctsPlayer implements Player {
 			node.addWins(winner);
 			return winner;
 		}
-		// Find child with best winrate
+		// Find child with best winrate, or choose a move that hasn't been tried yet and make a node for it
 		// Descend tree via that node with a recursive call. Result is winner.
 		// Update this node with the result
 		node.addWins(winner);
