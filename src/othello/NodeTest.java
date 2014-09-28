@@ -70,6 +70,8 @@ public class NodeTest {
 		assertTrue(counts[34] > 4000);
 	}
 
+	
+
 	@Test
 	public void testClearlyBestMove() {
 		State state = new State();
@@ -106,5 +108,16 @@ public class NodeTest {
 		assertEquals(1.41, root.getChild(34).getUcb1TunedValue(root), 0.01);
 		assertEquals(34, root.playoutMove(state));
 	}
-
+	
+//	@Test
+//	publci void testToString() {
+//		Node root = new Node();
+//		root.addChild(50, new Node());
+//		root.addChild(65, new Node());
+//		root.addChild(64, new Node());
+//		asserEquals("")
+//	}
+	
 }
+
+
