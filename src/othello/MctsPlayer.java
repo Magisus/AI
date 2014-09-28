@@ -58,7 +58,7 @@ public class MctsPlayer implements Player {
 		if (children.size() == 0) {
 			List<Integer> legalMoves = state.legalMoves();
 			move = legalMoves
-					.get((int) (Math.random() * legalMoves.size()));
+					.get((int) (Math.random() * legalMoves.size())); //is this right? when size is 0 will return index 0 but does not exist. 
 			copy.play(move);
 			winScore = finishPlayout(copy, new ArrayList<Integer>()); //TODO verify passing new array list as arg
 			node.addChild(move, new Node(winScore, 1)); //add new child with winScore and 1 playout.
