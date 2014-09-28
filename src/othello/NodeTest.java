@@ -20,6 +20,13 @@ public class NodeTest {
 		assertEquals(child, root.getChildren().get(23));
 	}
 	
-	
+//	@Test
+//	publci void testToString() {
+//		Node root = new Node();
+//		root.addChild(50, new Node());
+//		root.addChild(65, new Node());
+//		root.addChild(64, new Node());
+//		asserEquals("")
+//	}
 
 }
