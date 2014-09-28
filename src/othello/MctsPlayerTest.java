@@ -47,6 +47,7 @@ public class MctsPlayerTest {
 			// The first move should be legal from state
 			assertTrue(state.legalMoves().contains(moves.get(0)));
 		}
+		System.out.println(wins);
 		assertTrue(wins > 7000);
 		assertTrue(wins < 8000);
 	}

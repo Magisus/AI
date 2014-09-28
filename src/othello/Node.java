@@ -6,7 +6,7 @@ import java.util.*;
 public class Node {
 	
 	/** Number of wins through this node. */
-	private int wins;
+	private double wins;
 	
 	/** Number of playouts through this node. */
 	private int playOuts;
@@ -21,7 +21,7 @@ public class Node {
 		playOuts = 2;
 	}
 
-	public int getWins() {
+	public double getWins() {
 		return wins;
 	}
 
@@ -30,11 +30,11 @@ public class Node {
 	}
 	
 	public double getWinRate() {
-		return (double)wins/(double)playOuts;
+		return wins/(double)playOuts;
 	}
 	
-	public void addWin() {
-		this.wins++;
+	public void addWins(double wins) {
+		this.wins += wins;
 		this.playOuts++;
 	}
 	

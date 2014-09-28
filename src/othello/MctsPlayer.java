@@ -41,37 +41,37 @@ public class MctsPlayer implements Player {
 		return -1;
 	}
 
-	char performPlayout(State state, Node node) {
+	double performPlayout(State state, Node node) {
 		TreeMap<Integer, Node> children = node.getChildren();
+		double winner = 0.5;
 		if(children.size() == 0){
 			List<Integer> legalMoves = state.legalMoves();
 			State copy = state.copy();
 			int move = legalMoves.get((int)(Math.random() * legalMoves.size()));
 			copy.play(move);
-			char winner = finishPlayout(copy, new ArrayList<Integer>());
+			winner = finishPlayout(copy, new ArrayList<Integer>());
 			Node newChild = new Node();
-			node.addChild(move, new Node());
-			if(winner == state.getColorToPlay()){
-				node.addWin();
-			} else { //This will add losses for ties
-				node.addLoss();
-			}
+			node.addChild(move, newChild);
+			node.addWins(winner);
 		}
-		return 'T';
+		return winner;
 	}
 
-	char finishPlayout(State state, List<Integer> moves){
+	double finishPlayout(State state, List<Integer> moves){
 		State copy = state.copy();
 		while(!copy.gameOver()){
 			List<Integer> legalMoves = copy.legalMoves();
-			copy.play(moves.get((int)(Math.random() * moves.size())));
+			int randomMove = legalMoves.get((int)(Math.random() * legalMoves.size()));
+			copy.play(randomMove);
+			moves.add(randomMove);
 		}
 		if(copy.score() < 0){
-			return 'X';
+			//Flip the color to play, because the node we want to update was one turn earlier than the state we passed in
+			return State.opposite(state.getColorToPlay()) == 'X' ? 1.0 : 0.0;
 		} else if(copy.score() == 0){
-			return 'T';
+			return 0.5;
 		} else {
-			return 'O';
+			return State.opposite(state.getColorToPlay()) == 'X' ? 0.0 : 1.0;
 		}
 	}
 
