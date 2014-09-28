@@ -69,5 +69,15 @@ public class Node {
 //		System.out.println(result);
 		return result;
 	}
+
+	public void recordPlayout(List<Integer> moves, double d, char c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int playoutMove(State state) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 		
 }
