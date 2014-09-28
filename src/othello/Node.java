@@ -42,10 +42,28 @@ public class Node {
 		return children;
 	}
 	
-	public void addChild(int move, Node node) {
-		children.put(move, node);
+	public void addChild(int move) {
+		children.put(move, new Node());
 	}
 	
+	public Node getChild(int move){
+		return children.get(move);
+	}
+
+	public void recordPlayout(List<Integer> moves, double d, char c) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int playoutMove(State state) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double getUcb1TunedValue(Node root) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 	
 }

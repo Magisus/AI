@@ -62,8 +62,7 @@ public class MctsPlayer implements Player {
 					.get((int) (Math.random() * legalMoves.size()));
 			copy.play(move);
 			winner = finishPlayout(copy, new ArrayList<Integer>());
-			Node newChild = new Node();
-			node.addChild(move, newChild);
+			node.addChild(move);
 			node.addWins(winner);
 			return winner;
 		}
