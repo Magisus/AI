@@ -37,10 +37,6 @@ public class Node {
 		this.wins += wins;
 		this.playOuts++;
 	}
-	
-	public void addLoss() {
-		this.playOuts++;
-	}
 
 	public TreeMap<Integer, Node> getChildren() {
 		return children;
