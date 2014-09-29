@@ -23,6 +23,7 @@ public class NodeTest {
 	@Test
 	public void testAddChild() {
 		root.addChild(15);
+		System.out.println(root);
 		assertEquals("<root>\t(0 playouts)\n\t15: NaN\t(0 playouts)\n", root.toString());		
 	}
 	
@@ -31,7 +32,7 @@ public class NodeTest {
 		root.addChild(15);
 		root.addChild(23);
 		root.getChild(15).addChild(7);
-		assertEquals("<root>\t(0 playouts)\n\t15: NaN\t(0 playouts)\n\t15: \t7: NaN\t(0 playouts)\n\t23: NaN\t(0 playouts)\n", root.toString());		
+		assertEquals("<root>\t(0 playouts)\n\t15: 0.0\t(0 playouts)\n\t15: \t7: 0.0\t(0 playouts)\n\t23: 0.0\t(0 playouts)\n", root.toString());		
 	}
 
 	@Test

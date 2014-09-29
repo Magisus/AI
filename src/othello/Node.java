@@ -9,47 +9,42 @@ public class Node {
 	private double wins;
 
 	/** Number of playouts through this node. */
-	private int playOuts;
+	private int playouts;
 
 	/** Children of this node. */
 	private TreeMap<Integer, Node> children;
 
 	public Node() {
 		children = new TreeMap<>();
-		// I think actually we don't want to initialize it like this, not sure.
-		// Let's think about it
-		// // 1/2 win rate to initialize all nodes
-		// wins = 1;
-		// playOuts = 2;
 	}
 
 	/**
 	 * constructor for building a node with set wins and playouts.
 	 * 
 	 * @param wins
-	 * @param playOuts
+	 * @param playouts
 	 */
-	public Node(double wins, int playOuts) {
+	public Node(double wins, int playouts) {
 		children = new TreeMap<>();
 		this.wins = wins;
-		this.playOuts = playOuts;
+		this.playouts = playouts;
 	}
 
 	public double getWins() {
 		return wins;
 	}
 
-	public int getPlayOuts() {
-		return playOuts;
+	public int getPlayouts() {
+		return playouts;
 	}
 
 	public double getWinRate() {
-		return wins / (double) playOuts;
+		return wins / playouts;
 	}
 
 	public void addWins(double wins) {
 		this.wins += wins;
-		this.playOuts++;
+		this.playouts++;
 	}
 
 	public TreeMap<Integer, Node> getChildren() {
@@ -68,13 +63,12 @@ public class Node {
 	// string in the test. not sure how he is building it
 	@Override
 	public String toString() {
-		String result = "<root>\t(" + this.playOuts + " playouts)\n";
+		String result = "<root>\t(" + this.playouts + " playouts)\n";
 		for (Map.Entry<Integer, Node> entry : this.getChildren().entrySet()) {
 			int move = entry.getKey();
-			result += "\t" + move + ": " + entry.getValue().getWins() + "\t("
-					+ entry.getValue().getPlayOuts() + " playouts)\n";
+			result += "\t" + move + ": " + entry.getValue().getWinRate() + "\t("
+					+ entry.getValue().getPlayouts() + " playouts)\n";
 		}
-		// System.out.println(result);
 		return result;
 	}
 
@@ -89,6 +83,11 @@ public class Node {
 	}
 
 	public double getUcb1TunedValue(Node root) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public int getMoveWithMostWins() {
 		// TODO Auto-generated method stub
 		return 0;
 	}

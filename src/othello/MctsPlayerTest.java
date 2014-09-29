@@ -47,7 +47,6 @@ public class MctsPlayerTest {
 			// The first move should be legal from state
 			assertTrue(state.legalMoves().contains(moves.get(0)));
 		}
-		System.out.println(wins);
 		assertTrue(wins > 7000);
 		assertTrue(wins < 8000);
 	}
@@ -67,7 +66,7 @@ public class MctsPlayerTest {
 		state = new State(board, 'X');
 		player.setRoot(new Node());
 		for (int i = 0; i < 100; i++) {
-			player.performPlayout(state.copy(), player.getRoot());
+			player.playout(state.copy());
 		}
 		assertEquals("<root>\t(100 playouts)\n\t56: 1.000\t(99 playouts)\n\t56: \t63: 0.000\t(98 playouts)\n\t63: 0.000\t(1 playouts)\n", player.getRoot().toString());
 	}
