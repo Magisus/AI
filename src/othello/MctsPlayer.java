@@ -31,9 +31,9 @@ public class MctsPlayer implements Player {
 	 */
 	public void playout(State state) {
 		State copy = state.copy();
-		descend(copy);
-		double winCount = 0.5;
 		ArrayList<Integer> moves = new ArrayList<>();
+		descend(copy, moves);
+		double winCount = 0.5;
 		if (!copy.gameOver()) {
 			winCount = findWinCount(finishPlayout(copy, moves), state.getColorToPlay());
 		} else {
@@ -64,7 +64,7 @@ public class MctsPlayer implements Player {
 	}
 
 	/** Descends through the tree. */
-	public void descend(State state) {
+	public void descend(State state, List<Integer> moves) {
 		
 	}
 
