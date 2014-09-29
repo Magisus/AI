@@ -31,7 +31,7 @@ public class MctsPlayer implements Player {
 	 */
 	public void playout(State state) {
 		State copy = state.copy();
-		copy = descend(copy);
+		descend(copy);
 		double winCount = 0.5;
 		ArrayList<Integer> moves = new ArrayList<>();
 		if (!copy.gameOver()) {
@@ -63,9 +63,9 @@ public class MctsPlayer implements Player {
 		}
 	}
 
-	/** Descends through the tree, returning the state of the board at the tree leaf. */
-	public State descend(State state) {
-		return state;
+	/** Descends through the tree. */
+	public void descend(State state) {
+		
 	}
 
 	public void setRoot(Node root) {
