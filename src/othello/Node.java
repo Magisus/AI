@@ -164,6 +164,10 @@ public class Node {
 	public int getMoveWithMostWins(State state) {
 		Node bestNode = new Node();
 		
+		if(children.size() == 0){
+			return State.PASS;
+		}
+		
 		// Go through the children and check who has highest wins to find bestNode
 		for (int key : this.getChildren().keySet()) {
 			if(!state.legalMoves().contains(key)){
@@ -181,7 +185,7 @@ public class Node {
 				return entry.getKey();
 			}
 		}
-		// If best node was not found, return -2 to signal error occurred
-		return -2;
+		// None of the moves with nodes are legal. Choose a legal move at random.
+		return state.legalMoves().get(StdRandom.uniform(state.legalMoves().size()));
 	}
 }

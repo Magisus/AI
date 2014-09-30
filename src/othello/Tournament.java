@@ -28,7 +28,7 @@ public class Tournament {
 		for (int depth = 1; depth <= 7; depth++) {
 			players.add(new AlphaBetaPlayer(depth));
 		}
-		for(int i = 1; i <= 5; i++){
+		for(int i = 1; i <=5; i++){
 			players.add(new MctsPlayer(100 * i));
 		}
 	}
@@ -44,9 +44,17 @@ public class Tournament {
 			if (board.getColorToPlay() == 'X') {
 				move = black.move(board);
 				elapsedTime[0] += System.nanoTime() - before;
+				if (elapsedTime[0] > TIME_LIMIT) {
+					System.out.println("BLACK FORFEITS ON TIME");
+					return 0;
+				}
 			} else {
 				move = white.move(board);
 				elapsedTime[1] += System.nanoTime() - before;
+				if (elapsedTime[1] > TIME_LIMIT) {
+					System.out.println("WHITE FORFEITS ON TIME");
+					return 1;
+				}
 			}
 			if (board.legalMoves().contains(move)) {
 				board.play(move);
@@ -72,11 +80,13 @@ public class Tournament {
 		double[][] wins = new double[n][n];
 		for (int b = 0; b < players.size(); b++) {
 			for (int w = 0; w < players.size(); w++) {
+				if (b != w) {
 					for (int game = 0; game < GAMES_PER_CONDITION; game++) {
 						double result = playGame(players.get(b), players.get(w));
 						wins[b][w] += result;
 						wins[w][b] += 1.0 - result;
 					}
+				}
 			}
 		}
 		for (int b = 0; b < players.size(); b++) {
@@ -88,7 +98,7 @@ public class Tournament {
 			}
 			System.out.println("Total: " + sum);
 		}
-//		System.out.println("Elapsed time (nanoseconds):");
+		System.out.println("Elapsed time (nanoseconds):");
 	}
 
 }
