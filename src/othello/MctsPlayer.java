@@ -25,7 +25,7 @@ public class MctsPlayer implements Player {
 		for (int i = 0; i < playouts; i++) {
 			playout(state);
 		}
-		int bestMove = root.getMoveWithMostWins();
+		int bestMove = root.getMoveWithMostWins(state);
 		root = root.getChildren().get(bestMove);
 		return bestMove;
 		
@@ -39,6 +39,9 @@ public class MctsPlayer implements Player {
 	public void playout(State state) {
 		State copy = state.copy();
 		ArrayList<Integer> moves = new ArrayList<>();
+		if(root == null){
+			root = new Node();
+		}
 		descend(copy, root, moves);
 		double winScore = 0.5;
 		if (!copy.gameOver()) {

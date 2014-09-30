@@ -153,7 +153,6 @@ public class Node {
 				}
 			}
 		}
-//		System.out.println(move);
 		return move;
 	}
 
@@ -162,11 +161,15 @@ public class Node {
 		return 0;
 	}
 
-	public int getMoveWithMostWins() {
+	public int getMoveWithMostWins(State state) {
 		Node bestNode = new Node();
 		
 		// Go through the children and check who has highest wins to find bestNode
-		for (Node child : this.getChildren().values()) {
+		for (int key : this.getChildren().keySet()) {
+			if(!state.legalMoves().contains(key)){
+				continue;
+			}
+			Node child = children.get(key);
 			if (child.getWins() >= bestNode.getWins()) {
 				bestNode = child;
 			}
@@ -178,8 +181,7 @@ public class Node {
 				return entry.getKey();
 			}
 		}
-		// If best node was not found, return -2 to signal error occurred 
-		//TODO error message
+		// If best node was not found, return -2 to signal error occurred
 		return -2;
 	}
 }

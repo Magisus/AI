@@ -9,7 +9,7 @@ public class Tournament {
 	 * deterministic players liked MinimaxPlayer and AlphaBetaPlayer, there is
 	 * no reason to turn this above 1.
 	 */
-	public static final int GAMES_PER_CONDITION = 1;
+	public static final int GAMES_PER_CONDITION = 10;
 	
 	/**
 	 * Maximum time (in nanoseconds) allowed for all moves played by one player in a game.
@@ -25,11 +25,12 @@ public class Tournament {
 
 	public Tournament() {
 		players = new ArrayList<Player>();
-//		for (int depth = 1; depth <= 7; depth++) {
-//			players.add(new AlphaBetaPlayer(depth));
-//		}
-		players.add(new MinimaxPlayer(7));
-		players.add(new AlphaBetaPlayer(7));
+		for (int depth = 1; depth <= 7; depth++) {
+			players.add(new AlphaBetaPlayer(depth));
+		}
+		for(int i = 1; i <= 5; i++){
+			players.add(new MctsPlayer(100 * i));
+		}
 	}
 
 	/** Plays one game between two players. Returns 1 if black wins, 0 if white wins, 0.5 in case of a tie. */
@@ -71,13 +72,11 @@ public class Tournament {
 		double[][] wins = new double[n][n];
 		for (int b = 0; b < players.size(); b++) {
 			for (int w = 0; w < players.size(); w++) {
-				if (b != w) {
 					for (int game = 0; game < GAMES_PER_CONDITION; game++) {
 						double result = playGame(players.get(b), players.get(w));
 						wins[b][w] += result;
 						wins[w][b] += 1.0 - result;
 					}
-				}
 			}
 		}
 		for (int b = 0; b < players.size(); b++) {
