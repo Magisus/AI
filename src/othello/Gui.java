@@ -15,7 +15,7 @@ public class Gui {
 	public void run() {
 		show(0);
 		State board = new State();
-		Player[] players = {new HumanPlayer(), new MctsPlayer(500)};
+		Player[] players = {new HumanPlayer(), new MctsPlayer(1000)};
 		while (!board.gameOver()) {
 			int move;
 			if (board.getColorToPlay() == 'X') {

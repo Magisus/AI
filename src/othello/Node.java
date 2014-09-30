@@ -152,9 +152,7 @@ public class Node {
 					continue;
 				}
 				double currentUCB = entry.getValue().getUcb1TunedValue(this);
-				System.out.println("Looking at " + currentUCB);
 				if (currentUCB > ucb) {
-					System.out.println("Replacing " + ucb + " with " + currentUCB);
 					ucb = currentUCB;
 					move = entry.getKey();
 				}
@@ -177,57 +175,15 @@ public class Node {
 		return move;
 	}
 	
-	public double getUcb1TunedValue(Node root) {
-		for (int key : root.getChildren().keySet()) {
-			Node child = root.getChildren().get(key);
-			if (child.equals(this)) {
-				double r = child.getWinRate(); // the win rate for the move
-				int P = root.playouts + child.playouts; // the total number of playouts through the parent
-				int p = child.playouts; // the number of playouts through the move
-				double value = r + Math.sqrt((Math.log(P) / p) * Math.min(0.25, (r - Math.pow(r, 2) + Math.sqrt(2 * (Math.log(P) / Math.PI)))));
-				System.out.println(value);
-				return value;
-			}
-		}
-		return -1;		
-	}
-
-//	public double getUcb1TunedValue(Node root) {
-//		for (int key : root.getChildren().keySet()) {
-//			System.out.println("I got here");
-//			Node child = root.getChildren().get(key);
-//			if (child.getChildren().isEmpty()) {
-//				System.out.println("And here");
-//				if (root.equals(this)) {
-//					System.out.println("here!");
-//					return child.getUcb1TunedValue(root.getPlayouts());
-//				} // If the child is not "this" but has no children, we don't care about it.
-//			} else {
-//				return child.getUcb1TunedValue(root.getPlayouts());
-//			}
-//		}
-//		return -1;
-//	}
-//
-//	public double getUcb1TunedValue(int playouts) {
-//		for (int key : this.getChildren().keySet()) {
-//			Node child = children.get(key);
-//			double r = child.getWinRate(); // the win rate for the move
-//			int P = playouts; // the total number of playouts through the parent
-//			int p = child.playouts; // the number of playouts through the move
-//			if (child.getChildren().isEmpty()) {
-//				if (child.equals(this)) {
-//					return Ucb1Formula(r, P, p);
-//				}
-//			} else {
-//				return child.getUcb1TunedValue(P + p);
-//			}
-//		}
-//		return -1;
-//	}
-	
-	public double Ucb1Formula(double r, int P, int p) {
-		return r + Math.sqrt((Math.log(P) / p) * Math.min(0.25, (r - Math.pow(r, 2) + Math.sqrt(2 * (Math.log(P) / Math.PI)))));
+	public double getUcb1TunedValue(Node parent) {
+		double r = this.getWinRate(); 	// the win rate for the move
+		int P = parent.playouts; 		// the total number of playouts through the parent
+		int p = this.playouts; 			// the number of playouts through the move
+		double value = r
+				+ Math.sqrt((Math.log(P) / p)
+						* Math.min(0.25, (r - Math.pow(r, 2) + 
+								Math.sqrt(2 * (Math.log(P) / Math.PI)))));
+		return value;
 	}
 
 	public int getMoveWithMostWins(State state) {

@@ -92,11 +92,11 @@ public class MctsPlayer implements Player {
 		int move;
 		
 		move = node.playoutMove(state);
-		while (move != -2) {
+		while (move != -2) { //leaf 
 			moves.add(move);
 			state.play(move);
 			nodeToPlay = node.getChildren().get(move);
-			if (nodeToPlay == null) {
+			if (nodeToPlay == null) { //leaf
 				return;
 			}
 			node = nodeToPlay;
