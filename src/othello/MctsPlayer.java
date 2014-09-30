@@ -5,6 +5,10 @@ import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
+import edu.princeton.cs.introcs.StdRandom;
+
+// do we need to copy state so much?
+
 public class MctsPlayer implements Player {
 
 	Node root;
@@ -21,7 +25,10 @@ public class MctsPlayer implements Player {
 		for (int i = 0; i < playouts; i++) {
 			playout(state);
 		}
-		return root.getMoveWithMostWins();
+		int bestMove = root.getMoveWithMostWins();
+		root = root.getChildren().get(bestMove);
+		return bestMove;
+		
 	}
 
 	/**
@@ -32,26 +39,43 @@ public class MctsPlayer implements Player {
 	public void playout(State state) {
 		State copy = state.copy();
 		ArrayList<Integer> moves = new ArrayList<>();
-		descend(copy, moves);
-		double winCount = 0.5;
+		descend(copy, root, moves);
+		double winScore = 0.5;
 		if (!copy.gameOver()) {
-			winCount = findWinCount(finishPlayout(copy, moves), state.getColorToPlay());
+//			winScore = findWinCount(finishPlayout(copy, moves), state.getColorToPlay());
+			winScore = finishPlayout(copy, moves);
 		} else {
-			winCount = findWinCount(copy.score(), state.getColorToPlay());
+//			winScore = findWinCount(copy.score(), state.getColorToPlay());
+			winScore = copy.score();
 		}
-		root.recordPlayout(moves, winCount, state.getColorToPlay());
+		root.recordPlayout(moves, winScore, State.opposite(state.getColorToPlay()));
+		
+		
 	}
 
 	/** Chooses random moves until the end of the game, then returns the score. */
-	public int finishPlayout(State state, List<Integer> moves) {
-		return state.score();
+	public double finishPlayout(State state, List<Integer> moves) { 
+		// Play random moves until the game is over
+		while (!state.gameOver()) {
+			List<Integer> legalMoves = state.legalMoves();
+			if (legalMoves.isEmpty()) {
+				state.play(State.PASS);
+				moves.add(State.PASS);
+			}
+			int randomMove = legalMoves.get(StdRandom.uniform(legalMoves.size()));
+			state.play(randomMove);
+			moves.add(randomMove);
+		} 
+		if (state.score() > 0) return 1;
+		if (state.score() < 0) return 0;
+		return 0.5;
 	}
 
 	/**
 	 * Finds the value (0.0-1.0) to be added to the nodes, given the original
 	 * color to play.
 	 */
-	private double findWinCount(int score, char originalColorToPlay) {
+	private double findWinCount(double score, char originalColorToPlay) {
 		if (originalColorToPlay == 'X' && score < 0) {
 			return 1;
 		} else if (originalColorToPlay == 'O' && score > 0) {
@@ -64,8 +88,23 @@ public class MctsPlayer implements Player {
 	}
 
 	/** Descends through the tree. */
-	public void descend(State state, List<Integer> moves) {
+	public void descend(State state, Node node, List<Integer> moves) {
+		Node nodeToPlay = null;
+		int move;
 		
+		move = node.playoutMove(state);
+		while (move != -2) {
+			moves.add(move);
+			state.play(move);
+			nodeToPlay = node.getChildren().get(move);
+			if (nodeToPlay == null) {
+				return;
+			}
+			node = nodeToPlay;
+			move = node.playoutMove(state);
+		}
+
+		return;
 	}
 
 	public void setRoot(Node root) {
@@ -74,5 +113,10 @@ public class MctsPlayer implements Player {
 
 	public Node getRoot() {
 		return root;
+	}
+	
+	@Override
+	public String toString() {
+		return "Monte Carlo " + this.playouts;
 	}
 }

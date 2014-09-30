@@ -15,7 +15,7 @@ public class Gui {
 	public void run() {
 		show(0);
 		State board = new State();
-		Player[] players = {new HumanPlayer(), new HumanPlayer()};
+		Player[] players = {new HumanPlayer(), new MctsPlayer(500)};
 		while (!board.gameOver()) {
 			int move;
 			if (board.getColorToPlay() == 'X') {
@@ -28,6 +28,7 @@ public class Gui {
 			if (board.legalMoves().contains(move)) {
 				board.play(move);
 			} else {
+				System.out.println(move);
 				draw(board, "Illegal move.", 1000);
 			}
 		}

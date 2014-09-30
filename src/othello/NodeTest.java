@@ -23,7 +23,6 @@ public class NodeTest {
 	@Test
 	public void testAddChild() {
 		root.addChild(15);
-		System.out.println(root);
 		assertEquals("<root>\t(0 playouts)\n\t15: NaN\t(0 playouts)\n", root.toString());		
 	}
 	
@@ -32,7 +31,7 @@ public class NodeTest {
 		root.addChild(15);
 		root.addChild(23);
 		root.getChild(15).addChild(7);
-		assertEquals("<root>\t(0 playouts)\n\t15: 0.0\t(0 playouts)\n\t15: \t7: 0.0\t(0 playouts)\n\t23: 0.0\t(0 playouts)\n", root.toString());		
+		assertEquals("<root>\t(0 playouts)\n\t15: NaN\t(0 playouts)\n\t15: \t7: NaN\t(0 playouts)\n\t23: NaN\t(0 playouts)\n", root.toString());		
 	}
 
 	@Test
@@ -86,6 +85,8 @@ public class NodeTest {
 				root.recordPlayout(moves, 0.0, 'X');				
 			}
 		}
+		System.out.println(root.getChildren().get(34).getWinRate());
+		System.out.println(root.getChildren().get(20).getWinRate());
 		assertEquals(34, root.playoutMove(state));
 	}
 	
@@ -108,17 +109,7 @@ public class NodeTest {
 		assertEquals(0.54, root.getChild(20).getUcb1TunedValue(root), 0.01);
 		assertEquals(1.41, root.getChild(34).getUcb1TunedValue(root), 0.01);
 		assertEquals(34, root.playoutMove(state));
-	}
-	
-//	@Test
-//	publci void testToString() {
-//		Node root = new Node();
-//		root.addChild(50, new Node());
-//		root.addChild(65, new Node());
-//		root.addChild(64, new Node());
-//		asserEquals("")
-//	}
-	
+	}	
 }
 
 
