@@ -20,18 +20,6 @@ public class Node {
 		children = new TreeMap<>();
 	}
 
-	/**
-	 * constructor for building a node with set wins and playouts.
-	 * 
-	 * @param wins
-	 * @param playouts
-	 */
-	public Node(double wins, int playouts) {
-		children = new TreeMap<>();
-		this.wins = wins;
-		this.playouts = playouts;
-	}
-
 	public double getWins() {
 		return wins;
 	}
@@ -91,7 +79,7 @@ public class Node {
 					+ String.format("%1.3f", node.getWinRate()) + "\t("
 					+ node.getPlayouts() + " playouts)\n";
 			if (!node.getChildren().isEmpty()) {
-				childString += move + ": ";
+				childString += "\t" + move + ": ";
 				result += node.toString(childString);
 			}
 
@@ -99,21 +87,30 @@ public class Node {
 		return result;
 	}
 
-	// think this works not sure
+	/**
+	 * updates score & playouts of all nodes on path taken during this playout.
+	 * also adds new node where we started to randomly finishPlayout
+	 * @param moves list of moves taken in this playout
+	 * @param winScore
+	 * @param color 
+	 */
 	public void recordPlayout(List<Integer> moves, double winScore, char color) {
 		TreeMap<Integer, Node> children;
 		Node node = this;
-		winScore = 1 - winScore;
+		if (color == 'X') winScore = 1 - winScore;
 		node.playouts++;
 
 		for (int key : moves) {
 			winScore = 1 - winScore;
 			children = node.children;
+			// if the move does not have a child, it is first move of random playout aka new node
+			// so add it, give it a score, and finish
 			if (children.get(key) == null) {
 				node.addChild(key);
 				node.children.get(key).addWins(winScore);
 				return;
 			}
+			// otherwise move to next node down the list and update its score 
 			node = children.get(key);
 			node.addWins(winScore);
 		}
@@ -157,20 +154,6 @@ public class Node {
 					move = entry.getKey();
 				}
 			}			
-			
-			
-			// otherwise find the node with highest wins and use that move
-//			double highWinRate = 0;
-//			for (Map.Entry<Integer, Node> entry : this.getChildren().entrySet()) {
-//				if (!legalMoves.contains(entry.getKey())) {
-//					continue;
-//				}
-//				double currentWinRate = entry.getValue().getWinRate();
-//				if (currentWinRate > highWinRate) {
-//					highWinRate = currentWinRate;
-//					move = entry.getKey();
-//				}
-//			}
 		}
 		return move;
 	}

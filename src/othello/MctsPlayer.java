@@ -39,7 +39,7 @@ public class MctsPlayer implements Player {
 	public void playout(State state) {
 		State copy = state.copy();
 		ArrayList<Integer> moves = new ArrayList<>();
-		if(root == null){
+		if (root == null) {
 			root = new Node();
 		}
 		descend(copy, root, moves);
@@ -47,9 +47,11 @@ public class MctsPlayer implements Player {
 		if (!copy.gameOver()) {
 			winScore = finishPlayout(copy, moves);
 		} else {
-			winScore = copy.score();
+			if (copy.score() > 0) winScore = 1;
+			if (copy.score() < 0) winScore = 0;
+			winScore = 0.5;
 		}
-		root.recordPlayout(moves, winScore, State.opposite(state.getColorToPlay()));
+		root.recordPlayout(moves, winScore, state.getColorToPlay());
 	}
 
 	/** Chooses random moves until the end of the game, then returns the score. */

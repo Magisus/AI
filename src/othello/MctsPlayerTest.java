@@ -104,10 +104,8 @@ public class MctsPlayerTest {
 		int[] counts = new int[WIDTH * WIDTH];
 		for (int i = 0; i < 100; i++) {
 			int move = player.move(state);
-			System.out.println(move);
 			counts[move]++;
 		}
-		System.out.println(counts[61]);
 		assertTrue(counts[61] > 50);
 	}
 
