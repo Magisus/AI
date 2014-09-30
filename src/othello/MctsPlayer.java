@@ -45,15 +45,11 @@ public class MctsPlayer implements Player {
 		descend(copy, root, moves);
 		double winScore = 0.5;
 		if (!copy.gameOver()) {
-//			winScore = findWinCount(finishPlayout(copy, moves), state.getColorToPlay());
 			winScore = finishPlayout(copy, moves);
 		} else {
-//			winScore = findWinCount(copy.score(), state.getColorToPlay());
 			winScore = copy.score();
 		}
 		root.recordPlayout(moves, winScore, State.opposite(state.getColorToPlay()));
-		
-		
 	}
 
 	/** Chooses random moves until the end of the game, then returns the score. */
