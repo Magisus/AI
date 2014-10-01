@@ -12,7 +12,11 @@ public class LinearAlgebra {
 		}
 		
 		public static double[] scale(double a, double[] b) {
-			return new double[1];
+			double[] bb = new double[b.length];
+			for(int i = 0; i < b.length; i++){
+				bb[i] = b[i] * a;
+			}
+			return bb;
 		}
 		
 }
