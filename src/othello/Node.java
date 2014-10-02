@@ -165,7 +165,7 @@ public class Node {
 		double value = r
 				+ Math.sqrt((Math.log(P) / p)
 						* Math.min(0.25, (r - Math.pow(r, 2) + 
-								Math.sqrt(2 * (Math.log(P) / Math.PI)))));
+								Math.sqrt(2 * (Math.log(P) / p)))));
 		return value;
 	}
 
