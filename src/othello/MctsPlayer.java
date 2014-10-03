@@ -7,7 +7,6 @@ import java.util.TreeMap;
 
 import edu.princeton.cs.introcs.StdRandom;
 
-// do we need to copy state so much?
 
 public class MctsPlayer implements Player {
 
@@ -27,7 +26,6 @@ public class MctsPlayer implements Player {
 			playout(state);
 		}
 		int bestMove = root.getMoveWithMostWins(state);
-		root = root.getChildren().get(bestMove);
 		return bestMove;
 		
 	}
@@ -45,13 +43,7 @@ public class MctsPlayer implements Player {
 		}
 		descend(copy, root, moves);
 		double winScore = 0.5;
-		if (!copy.gameOver()) {
-			winScore = finishPlayout(copy, moves);
-		} else {
-			if (copy.score() > 0) winScore = 1;
-			if (copy.score() < 0) winScore = 0;
-			winScore = 0.5;
-		}
+		winScore = finishPlayout(copy, moves);
 		root.recordPlayout(moves, winScore, state.getColorToPlay());
 	}
 
@@ -77,13 +69,8 @@ public class MctsPlayer implements Player {
 	
 	/** Chooses random moves until the end of the game, then returns the score. */
 	public double finishPlayout(State state, List<Integer> moves) { 
-		// Play random moves until the game is over
 		while (!state.gameOver()) {
 			List<Integer> legalMoves = state.legalMoves();
-			if (legalMoves.isEmpty()) {
-				state.play(State.PASS);
-				moves.add(State.PASS);
-			}
 			int randomMove = legalMoves.get(StdRandom.uniform(legalMoves.size()));
 			state.play(randomMove);
 			moves.add(randomMove);

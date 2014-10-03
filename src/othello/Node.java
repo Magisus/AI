@@ -97,7 +97,9 @@ public class Node {
 	public void recordPlayout(List<Integer> moves, double winScore, char color) {
 		TreeMap<Integer, Node> children;
 		Node node = this;
-		if (color == 'X') winScore = 1 - winScore;
+		if (color == 'X'){
+			winScore = 1 - winScore;
+		}
 		node.playouts++;
 
 		for (int key : moves) {
