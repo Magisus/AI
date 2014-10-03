@@ -95,25 +95,24 @@ public class Node {
 	 * @param color 
 	 */
 	public void recordPlayout(List<Integer> moves, double winScore, char color) {
-		TreeMap<Integer, Node> children;
-		Node node = this;
 		if (color == 'X'){
 			winScore = 1 - winScore;
 		}
+		Node node = this;
 		node.playouts++;
 
 		for (int key : moves) {
 			winScore = 1 - winScore;
-			children = node.children;
+			TreeMap<Integer, Node> otherChildren = node.children;
 			// if the move does not have a child, it is first move of random playout aka new node
 			// so add it, give it a score, and finish
-			if (children.get(key) == null) {
+			if (otherChildren.get(key) == null) {
 				node.addChild(key);
-				node.children.get(key).addWins(winScore);
+				node.getChild(key).addWins(winScore);
 				return;
 			}
 			// otherwise move to next node down the list and update its score 
-			node = children.get(key);
+			node = otherChildren.get(key);
 			node.addWins(winScore);
 		}
 		return;
@@ -129,9 +128,9 @@ public class Node {
 
 		int move = -2; // -2 is our fail state
 		List<Integer> legalMoves = state.legalMoves();
-		List<Integer> unplayed = new ArrayList<Integer>();
+		List<Integer> unplayed = new ArrayList<>();
 
-		if (this.children.size() == 0) {
+		if (children.size() == 0) {
 			return -2;
 		}
 
@@ -146,14 +145,11 @@ public class Node {
 			move = unplayed.get(StdRandom.uniform(unplayed.size()));
 		} else { // otherwise find node with highest Ucb1 value
 			double ucb = 0;
-			for (Map.Entry<Integer, Node> entry : this.getChildren().entrySet()) {
-				if (!legalMoves.contains(entry.getKey())) {
-					continue;
-				}
-				double currentUCB = entry.getValue().getUcb1TunedValue(this);
+			for(int key : children.keySet()){
+				double currentUCB = children.get(key).getUcb1TunedValue(this);
 				if (currentUCB > ucb) {
 					ucb = currentUCB;
-					move = entry.getKey();
+					move = key;
 				}
 			}			
 		}
@@ -161,9 +157,9 @@ public class Node {
 	}
 	
 	public double getUcb1TunedValue(Node parent) {
-		double r = this.getWinRate(); 	// the win rate for the move
+		double r = getWinRate(); 	// the win rate for the move
 		int P = parent.playouts; 		// the total number of playouts through the parent
-		int p = this.playouts; 			// the number of playouts through the move
+		int p = playouts; 			// the number of playouts through the move
 		double value = r
 				+ Math.sqrt((Math.log(P) / p)
 						* Math.min(0.25, (r - Math.pow(r, 2) + 
@@ -171,32 +167,17 @@ public class Node {
 		return value;
 	}
 
-	public int getMoveWithMostWins(State state) {
-		Node bestNode = new Node();
-		
-		if(children.size() == 0){
-			return State.PASS;
-		}
-		
-		// Go through the children and check who has highest wins to find bestNode
-		for (int key : this.getChildren().keySet()) {
-			if (!state.legalMoves().contains(key)) {
-				continue;
-			}
+	public int getMoveWithMostWins() {
+		int bestMove = State.PASS;
+		double mostWins = 0;
+		for(int key : children.keySet()){
 			Node child = children.get(key);
-			if (child.getWins() >= bestNode.getWins()) {
-				bestNode = child;
+			if(child.getWins() >= mostWins){
+				mostWins = child.getWins();
+				bestMove = key;
 			}
 		}
-		// Next find the map entry associated with our best node
-		for (Map.Entry<Integer, Node> entry : this.getChildren().entrySet()) {
-			// If we found bestNode, return the corresponding key (the move for
-			// that node)
-			if (bestNode.equals(entry.getValue())) {
-				return entry.getKey();
-			}
-		}
-		// None of the moves with nodes are legal. Choose a legal move at random.
-		return state.legalMoves().get(StdRandom.uniform(state.legalMoves().size()));
+		System.out.println(toString());
+		return bestMove;
 	}
 }

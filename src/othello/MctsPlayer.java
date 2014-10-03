@@ -12,7 +12,6 @@ public class MctsPlayer implements Player {
 
 	Node root;
 	int playouts;
-	int playoutsCompleted;
 
 	public MctsPlayer(int playouts) {
 		this.playouts = playouts;
@@ -25,7 +24,7 @@ public class MctsPlayer implements Player {
 		for (int i = 0; i < playouts; i++) {
 			playout(state);
 		}
-		int bestMove = root.getMoveWithMostWins(state);
+		int bestMove = root.getMoveWithMostWins();
 		return bestMove;
 		
 	}
@@ -38,12 +37,8 @@ public class MctsPlayer implements Player {
 	public void playout(State state) {
 		State copy = state.copy();
 		ArrayList<Integer> moves = new ArrayList<>();
-		if (root == null) {
-			root = new Node();
-		}
 		descend(copy, root, moves);
-		double winScore = 0.5;
-		winScore = finishPlayout(copy, moves);
+		double winScore = finishPlayout(copy, moves);
 		root.recordPlayout(moves, winScore, state.getColorToPlay());
 	}
 
@@ -63,7 +58,6 @@ public class MctsPlayer implements Player {
 			node = nodeToPlay;
 			move = node.playoutMove(state);
 		}
-		
 		return;
 	}
 	
