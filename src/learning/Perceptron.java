@@ -54,12 +54,16 @@ public class Perceptron {
 	}
 
 	public void train(List<Point> data) {
-		// TODO Auto-generated method stub
+		while(error(data) > 0){
+			update(data);
+		}
 		
 	}
 
 	public void train(List<Point> data, int maxUpdates) {
-		// TODO Auto-generated method stub
+		for(int i = 0; i < maxUpdates; i++){
+			update(data);
+		}
 		
 	}
 	
