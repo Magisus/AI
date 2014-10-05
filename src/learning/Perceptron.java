@@ -7,11 +7,11 @@ public class Perceptron {
 	double[] weights; 
 	
 	public Perceptron(double[] weights) {
-		// TODO Auto-generated constructor stub
+		this.weights = weights;
 	}
 
 	public Perceptron(int dimensionality) {
-		// TODO Auto-generated constructor stub
+		weights = new double[dimensionality + 1];
 	}
 	
 	public double[] getWeights() {
@@ -19,22 +19,38 @@ public class Perceptron {
 	}
 
 	public double error(List<Point> data) {
-		// TODO Auto-generated method stub
-		return 0;
+		double misclassified = 0;
+		for(Point point : data){
+			if(classify(point) != point.getClassification()){
+				misclassified++;
+			}
+		}
+		return misclassified / data.size();
 	}
 
 	public void update(Point p) {
-		// TODO Auto-generated method stub
+		for(int i = 0; i < weights.length; i++){
+			weights[i] = weights[i] + p.getClassification() * p.getAttributes()[i];
+		}
 		
 	}
 	
 	public void update(List<Point> data) {
+		for(Point point : data){
+			if(point.getClassification() != classify(point)){
+				update(point);
+				return;
+			}
+		}
 		
 	}
 
 	public int classify(Point point) {
-		// TODO Auto-generated method stub
-		return 0;
+		double sum = 0;
+		for(int i = 0; i < weights.length; i++){
+			sum += weights[i] * point.getAttributes()[i];
+		}
+		return sum >= 0 ? 1 : -1;
 	}
 
 	public void train(List<Point> data) {
