@@ -77,7 +77,7 @@ public class Perceptron {
 			clear();
 			Gui.draw(weights);
 			Gui.draw(data);
-			show(1);
+			show(100);
 		}
 	}
 	
