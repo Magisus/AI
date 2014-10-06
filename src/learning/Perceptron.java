@@ -65,6 +65,7 @@ public class Perceptron {
 	public void train(List<Point> data, int maxUpdates) {
 		for(int i = 0; i < maxUpdates; i++){
 			update(data);
+			System.out.println(error(data));
 		}
 	}
 	
