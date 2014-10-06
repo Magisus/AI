@@ -1,5 +1,6 @@
 package learning;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Perceptron {
@@ -65,10 +66,24 @@ public class Perceptron {
 		for(int i = 0; i < maxUpdates; i++){
 			update(data);
 		}
-		
 	}
 	
 	public void trainAnimated(List<Point> data) {
+		
+	}
+	
+	public static void main(String[] args) {
+		List<Point> data = new ArrayList<>();
+		double[] weights = new double[3];
+		weights[1] = Math.random() - 0.5;
+		weights[2] = Math.random() - 0.5;
+		weights[0] = -(0.5 * weights[1] + 0.5 * weights[2]);
+		for (int i = 0; i < 100; i++) {
+			data.add(new Point(weights));
+		}
+		
+		Perceptron perc = new Perceptron(2);
+		perc.trainAnimated(data);
 		
 	}
 
