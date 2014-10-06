@@ -35,6 +35,7 @@ public class Cancer {
 					}
 					data.add(new Point(attributes, classification));
 				}
+				valid = true;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -42,7 +43,7 @@ public class Cancer {
 		}
 		
 		Perceptron perceptron = new Perceptron(10);
-		perceptron.train(data, 1000);
+		perceptron.train(data, 100);
 		
 	}
 }
