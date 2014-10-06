@@ -56,6 +56,7 @@ public class Perceptron {
 	public void train(List<Point> data) {
 		while(error(data) > 0){
 			update(data);
+			System.out.println(error(data));
 		}
 		
 	}

@@ -71,6 +71,9 @@ public class Gui {
 		for (int i = 0; i < 100; i++) {
 			data.add(new Point(weights));
 		}
+		
+		Perceptron perc = new Perceptron(2);
+		perc.train(data);
 		show(0);
 		clear();
 		draw(weights);
