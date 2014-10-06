@@ -1,5 +1,7 @@
 package learning;
 
+import static edu.princeton.cs.introcs.StdDraw.*;
+
 import java.util.List;
 
 public class Perceptron {
@@ -68,7 +70,14 @@ public class Perceptron {
 	}
 	
 	public void trainAnimated(List<Point> data) {
-		
+		while (error(data) > 0) {
+			update(data);
+			show(0);
+			clear();
+			Gui.draw(weights);
+			Gui.draw(data);
+			show(1);
+		}
 	}
 
 }
