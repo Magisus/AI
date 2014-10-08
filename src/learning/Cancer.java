@@ -14,20 +14,23 @@ public class Cancer {
 			
 			String line;
 			String[] values = new String[11]; 
-			double[] attributes = new double[10];
+			double[] attributes = new double[9];
 			boolean valid = true;
 			
+			// read lines from file
 			while ((line = br.readLine()) != null) {
 				values = line.split(",");
-				for (int i = 0; i < 10; i++) {
-					if (values[i].equals("?")) { 
+				// start at 1 because the 0 attribute is useless id number
+				for (int i = 1; i < 10; i++) {
+					if (values[i].equals("?")) { // do not add this data point if it is missing any field
 						valid = false; 
 						break; 
 						}
-					attributes[i] = Double.parseDouble(values[i]);
+					attributes[i-1] = Double.parseDouble(values[i]);
 				}			
-				if (valid) {
+				if (valid) { 
 					int classification = Integer.parseInt(values[10]);
+					// change the value, 2 to 1 and 4 to -1
 					if (classification == 2) {
 						classification = 1;
 					} else {
@@ -42,8 +45,8 @@ public class Cancer {
 			System.exit(0);
 		}
 		
-		Perceptron perceptron = new Perceptron(10);
-		perceptron.train(data, 100);
+		Perceptron perceptron = new Perceptron(9);
+		perceptron.train(data, 1000);
 		
 	}
 }
