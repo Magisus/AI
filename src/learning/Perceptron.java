@@ -3,6 +3,7 @@ package learning;
 import static edu.princeton.cs.introcs.StdDraw.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.MissingFormatArgumentException;
 
@@ -35,16 +36,11 @@ public class Perceptron {
 	}
 
 	public void update(Point p) {
-		for (int i = 0; i < weights.length; i++) {
-			weights[i] = weights[i] + p.getClassification() * p.getAttributes()[i];
-		}
-
+		weights = LinearAlgebra.sum(weights, LinearAlgebra.scale(p.getClassification(), p.getAttributes()));
 	}
 
 	public void update(List<Point> data) {
-		// So turns out we needed to randomize this. This fails his test about
-		// 75% of the time now though. I think people are gonna ask about this
-		// in class tomorrow.
+		Collections.shuffle(data);
 		List<Point> misclassified = new ArrayList<>();
 		for (Point point : data) {
 			if (point.getClassification() != classify(point)) {
@@ -53,15 +49,13 @@ public class Perceptron {
 		}
 		if (!misclassified.isEmpty()) {
 			update(misclassified.get(StdRandom.uniform(misclassified.size())));
+			return;
 		}
 
 	}
 
 	public int classify(Point point) {
-		double sum = 0;
-		for (int i = 0; i < weights.length; i++) {
-			sum += weights[i] * point.getAttributes()[i];
-		}
+		double sum = LinearAlgebra.dotProduct(weights, point.getAttributes());
 		return sum >= 0 ? 1 : -1;
 	}
 
