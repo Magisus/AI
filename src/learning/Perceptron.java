@@ -40,9 +40,7 @@ public class Perceptron {
 	}
 
 	public void update(List<Point> data) {
-		// So turns out we needed to randomize this. This fails his test about
-		// 75% of the time now though. I think people are gonna ask about this
-		// in class tomorrow.
+		Collections.shuffle(data);
 		List<Point> misclassified = new ArrayList<>();
 		for (Point point : data) {
 			if (point.getClassification() != classify(point)) {
@@ -51,6 +49,7 @@ public class Perceptron {
 		}
 		if (!misclassified.isEmpty()) {
 			update(misclassified.get(StdRandom.uniform(misclassified.size())));
+			return;
 		}
 		Collections.shuffle(data);
 

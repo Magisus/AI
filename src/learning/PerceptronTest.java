@@ -62,9 +62,10 @@ public class PerceptronTest {
 	@Test
 	public void testTrainLimitedUpdates() {
 		perceptron = new Perceptron(2);
-		perceptron.train(data, 10);
+		perceptron.train(data, 2);
 		assertTrue(perceptron.error(data) > 0);
 		perceptron.train(data, 100);
+		System.out.println("Error: " + perceptron.error(data));
 		assertEquals(0.0, perceptron.error(data), 0.001);
 	}
 

@@ -6,12 +6,11 @@ import java.util.List;
 
 public class Cancer {
 
-	
 	public static void main(String[] args) {
 		File file = new File("breast-cancer-wisconsin.data");
 		List<Point> data = new ArrayList<>();
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-			
+
 			String line;
 			String[] values = new String[11]; 
 			double[] attributes = new double[9];
@@ -44,9 +43,9 @@ public class Cancer {
 			e.printStackTrace();
 			System.exit(0);
 		}
-		
+
 		Perceptron perceptron = new Perceptron(9);
 		perceptron.train(data, 1000);
-		
+
 	}
 }
