@@ -44,7 +44,7 @@ public class Cancer {
 			System.exit(0);
 		}
 
-		Perceptron perceptron = new Perceptron(9);
+		PocketPerceptron perceptron = new PocketPerceptron(9);
 		perceptron.train(data, 1000);
 
 	}
