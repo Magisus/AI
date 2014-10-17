@@ -8,8 +8,8 @@ import java.util.List;
 
 public class Handwriting {
 
-	public static void main(String[] args) {
-		File file = new File("optdigits.tes");
+	public static List<Point> readFile(File file) { 
+		
 		List<Point> data = new ArrayList<>();
 		
 		try (BufferedReader br = new BufferedReader(new FileReader(file))) {
@@ -39,8 +39,19 @@ public class Handwriting {
 			System.exit(0);
 		}
 		
+		return data;
+	}
+	
+	public static void main(String[] args) {
+		File trainFile = new File("optdigits.tra");
+		File testFile = new File("optdigits.tes");
+		List<Point> trainData = readFile(trainFile);
+		List<Point> testData = readFile(testFile);
+		
+		
+		
 		PocketPerceptron perceptron = new PocketPerceptron(64);
-		perceptron.train(data, 2000);
+		perceptron.train(trainData, testData, 2000);
 	}
 	
 }
