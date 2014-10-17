@@ -56,7 +56,7 @@ public class PocketPerceptron extends Perceptron{
 		for (int i = 0; i < maxUpdates; i++) {
 			update(data);
 			error(data);
-			System.out.println(errorWithBestWeights(data) + "," + errorWithBestWeights(testData));
+			System.out.println(errorWithBestWeights(data) + "\t" + errorWithBestWeights(testData));
 		}
 	}
 
