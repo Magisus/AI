@@ -52,12 +52,11 @@ public class PocketPerceptron extends Perceptron{
 		return misclassified / data.size();
 	}
 
-	@Override
-	public void train(List<Point> data, int maxUpdates) {
+	public void train(List<Point> data, List<Point> testData, int maxUpdates) {
 		for (int i = 0; i < maxUpdates; i++) {
 			update(data);
 			error(data);
-			System.out.println(leastError);
+			System.out.println(errorWithBestWeights(data) + "," + errorWithBestWeights(testData));
 		}
 	}
 
