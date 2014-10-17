@@ -39,8 +39,8 @@ public class Handwriting {
 			System.exit(0);
 		}
 		
-		PocketPerceptron perceptron = new PocketPerceptron(9);
-		perceptron.train(data, 1000);
+		PocketPerceptron perceptron = new PocketPerceptron(64);
+		perceptron.train(data, 2000);
 	}
 	
 }
