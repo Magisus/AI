@@ -68,9 +68,20 @@ public class Network {
 	}
 
 	public double[] run(double[] pixels) {
-		// TODO Auto-generated method stub
-		return null;
-
+		for(int i = 0; i < pixels.length; i++){
+			input[i].setOutput(pixels[i]);
+		}
+		for(SigmoidNeuron neuron : hidden){
+			neuron.update();
+		}
+		for(SigmoidNeuron neuron : output){
+			neuron.update();
+		}
+		double[] results = new double[output.length];
+		for(int i = 0; i < output.length; i++){
+			results[i] = output[i].getOutput();
+		}
+		return results;
 	}
 
 	public AbstractNeuron getNeuron(int layer, int index) {

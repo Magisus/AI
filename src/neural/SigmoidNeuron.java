@@ -32,7 +32,7 @@ public class SigmoidNeuron extends AbstractNeuron{
 	
 	public void updateWeights(){
 		double[] weights = new double[getWeights().length];
-		for(int i = 0; i < getWeights().length; i++){
+		for(int i = 0; i < weights.length; i++){
 			weights[i] = getWeights()[i] - LEARNING_RATE * getInput(i).getOutput() * delta;
 		}
 		setWeights(weights, -1);
