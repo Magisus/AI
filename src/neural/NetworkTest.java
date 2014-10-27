@@ -35,6 +35,7 @@ public class NetworkTest {
 		for (int i = 0; i < inputs.length; i++) {
 			assertArrayEquals(correct[i], net.run(inputs[i]), 0.1);
 		}
+//		assertArrayEquals(correct[1], net.run(inputs[1]), 0.1);
 	}
 
 }

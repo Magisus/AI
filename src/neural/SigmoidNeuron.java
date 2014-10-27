@@ -35,7 +35,7 @@ public class SigmoidNeuron extends AbstractNeuron{
 		for(int i = 0; i < weights.length; i++){
 			weights[i] = weights[i] - LEARNING_RATE * getInput(i).getOutput() * delta;
 		}
-		increaseBias(LEARNING_RATE * -1 * delta);
+		increaseBias(LEARNING_RATE * delta);
 	}
 	
 }
