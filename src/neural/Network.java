@@ -40,7 +40,7 @@ public class Network {
 		//Calculate all deltas
 		for(int i = 0; i < output.length; i++){
 			double out = output[i].getOutput();
-			double delta = (out - correctInst[i]) * (1 - out) * output[i].squash(out);
+			double delta = (out - correctInst[i]) * (1.0 - out) * out;
 			output[i].setDelta(delta);
 		}
 		for(int i = 0; i < hidden.length; i++){
@@ -48,7 +48,7 @@ public class Network {
 			for(SigmoidNeuron out : output){
 				sum += out.getDelta() * out.getWeights()[i];
 			}
-			double delta = sum * (1 - hidden[i].getOutput()) * hidden[i].squash(hidden[i].getOutput());
+			double delta = sum * (1 - hidden[i].getOutput()) * hidden[i].getOutput();
 			hidden[i].setDelta(delta);
 		}
 		//Adjust weights
@@ -64,7 +64,6 @@ public class Network {
 		for (int i = 0; i < epochs; i++) {
 			train(inputs, correct);
 		}
-
 	}
 
 	public double[] run(double[] pixels) {

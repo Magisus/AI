@@ -14,7 +14,7 @@ public class SigmoidNeuron extends AbstractNeuron{
 		for(int i = 0; i < weights.length; i++){
 			weights[i] = StdRandom.uniform();
 		}
-		setWeights(weights, -1);
+		setWeights(weights, StdRandom.uniform());
 	}
 	
 	double getDelta(){
@@ -27,15 +27,15 @@ public class SigmoidNeuron extends AbstractNeuron{
 
 	@Override
 	double squash(double sum) {
-		return Math.pow(Math.E, sum) / (1 + Math.pow(Math.E, sum));
+		return 1.0 / (1 + Math.pow(Math.E, -sum));
 	}
 	
 	public void updateWeights(){
-		double[] weights = new double[getWeights().length];
+		double[] weights = getWeights();
 		for(int i = 0; i < weights.length; i++){
-			weights[i] = getWeights()[i] - LEARNING_RATE * getInput(i).getOutput() * delta;
+			weights[i] = weights[i] - LEARNING_RATE * getInput(i).getOutput() * delta;
 		}
-		setWeights(weights, -1);
+		increaseBias(LEARNING_RATE * -1 * delta);
 	}
 	
 }
