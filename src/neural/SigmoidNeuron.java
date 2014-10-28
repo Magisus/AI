@@ -9,12 +9,12 @@ public class SigmoidNeuron extends AbstractNeuron{
 	private double delta;
 
 	public SigmoidNeuron(AbstractNeuron[] input){
-		super(input, null, StdRandom.uniform() - 0.5);
+		super(input, null, StdRandom.uniform(-0.1, 0.1));
 		double[] weights = new double[input.length];
 		for(int i = 0; i < weights.length; i++){
-			weights[i] =StdRandom.uniform() - 0.5;
+			weights[i] =StdRandom.uniform(-0.1, 0.1);
 		}
-		setWeights(weights, StdRandom.uniform() - 0.5);
+		setWeights(weights, StdRandom.uniform(-0.1, 0.1));
 	}
 	
 	double getDelta(){

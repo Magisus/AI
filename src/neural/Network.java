@@ -24,39 +24,41 @@ public class Network {
 	}
 
 	public void train(double[][] inputs, double[][] correct) {
-		//Calculate all x's
-		int index = StdRandom.uniform(inputs.length);
-		double[] instance = inputs[index];
-		double[] correctInst = correct[index];
-		for (int j = 0; j < input.length; j++) {
-			input[j].setOutput(instance[j]);
-		}
-		for (SigmoidNeuron neuron : hidden) {
-			neuron.update();
-		}
-		for(SigmoidNeuron outNeuron : output){
-			outNeuron.update();
-		}
-		//Calculate all deltas
-		for(int i = 0; i < output.length; i++){
-			double out = output[i].getOutput();
-			double delta = (out - correctInst[i]) * (1.0 - out) * out;
-			output[i].setDelta(delta);
-		}
-		for(int i = 0; i < hidden.length; i++){
-			double sum = 0;
-			for(SigmoidNeuron out : output){
-				sum += out.getDelta() * out.getWeights()[i];
+		// Calculate all x's
+		for (int k = 0; k < inputs.length; k++) {
+			double[] instance = inputs[k];
+			double[] correctInst = correct[k];
+			for (int j = 0; j < input.length; j++) {
+				input[j].setOutput(instance[j]);
 			}
-			double delta = sum * (1 - hidden[i].getOutput()) * hidden[i].getOutput();
-			hidden[i].setDelta(delta);
-		}
-		//Adjust weights
-		for(SigmoidNeuron neuron : hidden){
-			neuron.updateWeights();
-		}
-		for(SigmoidNeuron out : output){
-			out.updateWeights();
+			for (SigmoidNeuron neuron : hidden) {
+				neuron.update();
+			}
+			for (SigmoidNeuron outNeuron : output) {
+				outNeuron.update();
+			}
+			// Calculate all deltas
+			for (int i = 0; i < output.length; i++) {
+				double out = output[i].getOutput();
+				double delta = (out - correctInst[i]) * (1.0 - out) * out;
+				output[i].setDelta(delta);
+			}
+			for (int i = 0; i < hidden.length; i++) {
+				double sum = 0;
+				for (SigmoidNeuron out : output) {
+					sum += out.getDelta() * out.getWeights()[i];
+				}
+				double delta = sum * (1 - hidden[i].getOutput())
+						* hidden[i].getOutput();
+				hidden[i].setDelta(delta);
+			}
+			// Adjust weights
+			for (SigmoidNeuron neuron : hidden) {
+				neuron.updateWeights();
+			}
+			for (SigmoidNeuron out : output) {
+				out.updateWeights();
+			}
 		}
 	}
 
@@ -67,17 +69,17 @@ public class Network {
 	}
 
 	public double[] run(double[] pixels) {
-		for(int i = 0; i < pixels.length; i++){
+		for (int i = 0; i < pixels.length; i++) {
 			input[i].setOutput(pixels[i]);
 		}
-		for(SigmoidNeuron neuron : hidden){
+		for (SigmoidNeuron neuron : hidden) {
 			neuron.update();
 		}
-		for(SigmoidNeuron neuron : output){
+		for (SigmoidNeuron neuron : output) {
 			neuron.update();
 		}
 		double[] results = new double[output.length];
-		for(int i = 0; i < output.length; i++){
+		for (int i = 0; i < output.length; i++) {
 			results[i] = output[i].getOutput();
 		}
 		return results;
