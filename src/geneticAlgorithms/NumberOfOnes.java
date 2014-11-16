@@ -1,19 +1,22 @@
 package geneticAlgorithms;
 
-public class NumberOfOnes extends java.lang.Object implements FitnessFunction {
-
-	public NumberOfOnes() {
-		// TODO Auto-generated constructor stub
-	}
+public class NumberOfOnes implements FitnessFunction {
 	
 	/** Fitness is the number of '1's in the individual. */
-	public int fitness(java.lang.String individual) {
-		return -1;
+	@Override
+	public int fitness(String individual) {
+		int numberOfOnes = 0;
+		for(int i = 0; i < individual.length(); i++){
+			if(individual.charAt(i) == '1'){
+				numberOfOnes++;
+			}
+		}
+		return numberOfOnes;
 	}
 	
-	
-	public boolean isOptimal(java.lang.String individual) {
-		return false;
+	@Override
+	public boolean isOptimal(String individual) {
+		return !individual.contains("0");
 	}
 
 

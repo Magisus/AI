@@ -1,15 +1,15 @@
 package geneticAlgorithms;
 
-public class RoyalRoad extends java.lang.Object implements FitnessFunction {
+public class RoyalRoad implements FitnessFunction {
 
-	private final int chunkSize = 0;
+	private final int chunkSize;
 
 	/**
 	 * @param chunkSize
 	 *            Length of each chunk.
 	 */
 	public RoyalRoad(int chunkSize) {
-		// TODO Auto-generated constructor stub
+		this.chunkSize = chunkSize;
 	}
 
 	/**
@@ -19,14 +19,20 @@ public class RoyalRoad extends java.lang.Object implements FitnessFunction {
 	 */
 	@Override
 	public int fitness(String individual) {
-		// TODO Auto-generated method stub
-		return 0;
+		int chunkCount = (int)Math.floor((double)individual.length() / chunkSize);
+		int fitness = 0;
+		for(int i = 0; i < chunkCount; i++){
+			String chunk = individual.substring(i * chunkSize, (i + 1) * chunkSize);
+			if(!chunk.contains("0")){
+				fitness++;
+			}
+		}
+		return fitness;
 	}
 
 	@Override
 	public boolean isOptimal(String individual) {
-		// TODO Auto-generated method stub
-		return false;
+		return fitness(individual) == (int)Math.floor((double)individual.length() / chunkSize);
 	}
 
 }

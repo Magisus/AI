@@ -9,13 +9,13 @@ public class HillClimber extends java.lang.Object {
 	private FitnessFunction problem;
 
 	public HillClimber(FitnessFunction problem, int length) {
-
+		this.problem = problem;
+		best = Individuals.random(length);
 	}
 
 	/** Returns the current best individual. */
-	public java.lang.String getBest() {
-
-		return null;
+	public String getBest() {
+		return best;
 	}
 
 	/**
@@ -23,7 +23,10 @@ public class HillClimber extends java.lang.Object {
 	 * is better, replaces the best individual with the mutant.
 	 */
 	public void step() {
-
+		String mutation = Individuals.mutate(best, 1);
+		if(problem.fitness(mutation) > problem.fitness(best)){
+			best = mutation;
+		}
 	}
 
 }

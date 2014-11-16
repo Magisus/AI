@@ -9,18 +9,21 @@ public class HillClimberTest extends java.lang.Object {
 
 	private FitnessFunction problem;
 	private HillClimber climber;
-	
-	public HillClimberTest() {
-		
-	}
 
 	@Before
 	public void setUp() throws Exception {
+		problem = new NumberOfOnes();
+		climber = new HillClimber(problem, 100);
 	}
 
 	@Test
 	public void testStep() {
-		fail("Not yet implemented");
+		String initial = climber.getBest();
+		for(int i = 0; i < 15; i++){
+			climber.step();
+		}
+		assertFalse(initial.equals(climber.getBest()));
+		assertTrue(problem.fitness(initial) < problem.fitness(climber.getBest()));
 	}
 
 }

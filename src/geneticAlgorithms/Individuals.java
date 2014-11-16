@@ -1,14 +1,15 @@
 package geneticAlgorithms;
 
+import edu.princeton.cs.introcs.StdRandom;
+
 public class Individuals extends java.lang.Object {
 
-	public Individuals() {
-		// TODO Auto-generated constructor stub
-	}
-
 	/** Returns a new individual combining a and b by genetic crossover. */
-	static java.lang.String cross(java.lang.String a, java.lang.String b) {
-		return null;
+	static String cross(String a, String b) {
+		int split = StdRandom.uniform(a.length());
+		String child = a.substring(0, split);
+		child += b.substring(split);
+		return child;
 	}
 
 	/**
@@ -20,13 +21,23 @@ public class Individuals extends java.lang.Object {
 	 *            length of the individual to get the probability of a mutation
 	 *            at each position.
 	 */
-	static java.lang.String mutate(java.lang.String individual, double rate) {
-		return null;
+	static String mutate(String individual, double rate) {
+		char[] chars = individual.toCharArray();
+		for(int i = 0; i < chars.length; i++){
+			if(StdRandom.uniform() < (rate/individual.length())){
+				chars[i] = chars[i] == '1' ? '0' : '1';
+			}
+		}
+		return new String(chars);
 	}
 
 	/** Returns a random individual of the specified length */
-	static java.lang.String random(int length) {
-		return null;
+	static String random(int length) {
+		StringBuilder string = new StringBuilder();
+		for(int i = 0; i < length; i++){
+			string.append(StdRandom.uniform(2));
+		}
+		return string.toString();
 	}
 
 }
