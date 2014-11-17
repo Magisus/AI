@@ -1,9 +1,9 @@
 package geneticAlgorithms;
 
-public class HillClimber extends java.lang.Object {
+public class HillClimber {
 
 	/** The current best individual. */
-	private java.lang.String best;
+	private String best;
 
 	/** The problem being solved. */
 	private FitnessFunction problem;

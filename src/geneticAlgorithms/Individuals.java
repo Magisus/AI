@@ -2,7 +2,7 @@ package geneticAlgorithms;
 
 import edu.princeton.cs.introcs.StdRandom;
 
-public class Individuals extends java.lang.Object {
+public class Individuals {
 
 	/** Returns a new individual combining a and b by genetic crossover. */
 	static String cross(String a, String b) {
@@ -23,8 +23,8 @@ public class Individuals extends java.lang.Object {
 	 */
 	static String mutate(String individual, double rate) {
 		char[] chars = individual.toCharArray();
-		for(int i = 0; i < chars.length; i++){
-			if(StdRandom.uniform() < (rate/individual.length())){
+		for (int i = 0; i < chars.length; i++) {
+			if (StdRandom.uniform() < (rate / individual.length())) {
 				chars[i] = chars[i] == '1' ? '0' : '1';
 			}
 		}
@@ -34,7 +34,7 @@ public class Individuals extends java.lang.Object {
 	/** Returns a random individual of the specified length */
 	static String random(int length) {
 		StringBuilder string = new StringBuilder();
-		for(int i = 0; i < length; i++){
+		for (int i = 0; i < length; i++) {
 			string.append(StdRandom.uniform(2));
 		}
 		return string.toString();

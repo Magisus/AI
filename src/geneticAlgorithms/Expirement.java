@@ -1,10 +1,6 @@
 package geneticAlgorithms;
 
-public class Expirement extends java.lang.Object {
-
-	public Expirement() {
-
-	}
+public class Expirement {
 
 	public static void main(java.lang.String[] args) {
 		RoyalRoad road = new RoyalRoad(5);
@@ -25,7 +21,7 @@ public class Expirement extends java.lang.Object {
 		System.out.println("Independent Generations:");
 		System.out.println("	Individuals generated: " + i);
 		System.out.println("	Best Royal Road fitness: " + bestRoad);
-		System.out.println("	Best Number of Ones fitness:" + bestOnes);
+		System.out.println("	Best Number of Ones fitness: " + bestOnes);
 
 		HillClimber hillRoad = new HillClimber(road, 500);
 		HillClimber hillOnes = new HillClimber(ones, 500);
@@ -49,7 +45,7 @@ public class Expirement extends java.lang.Object {
 		}
 		System.out.println("Hill Climbing:");
 		System.out.println("	Ones individuals generated: " + onesGenerated);
-		System.out.println("	Best Number of Ones fitness:" + bestOnes);
+		System.out.println("	Best Number of Ones fitness: " + bestOnes);
 		System.out.println("	Road individuals generated: " + roadGenerated);
 		System.out.println("	Best Royal Road fitness: " + bestRoad);
 		
@@ -73,7 +69,7 @@ public class Expirement extends java.lang.Object {
 		}
 		System.out.println("Genetic Algorithm:");
 		System.out.println("	Ones individuals generated: " + onesGenerated * 1000);
-		System.out.println("	Best Number of Ones fitness:" + bestOnes);
+		System.out.println("	Best Number of Ones fitness: " + bestOnes);
 		System.out.println("    Ones final average fitness: " + popOnes.averageFitness());
 		System.out.println("	Road individuals generated: " + roadGenerated * 1000);
 		System.out.println("	Best Royal Road fitness: " + bestRoad);

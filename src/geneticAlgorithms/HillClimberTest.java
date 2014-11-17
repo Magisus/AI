@@ -5,7 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
-public class HillClimberTest extends java.lang.Object {
+public class HillClimberTest {
 
 	private FitnessFunction problem;
 	private HillClimber climber;

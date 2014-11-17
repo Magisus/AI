@@ -7,11 +7,6 @@ import org.junit.Test;
 
 public class IndividualsTest {
 	
-	@Before
-	public void setUp() {
-		
-	}
-
 	@Test
 	public void testCross() {
 		String a = Individuals.random(100);
